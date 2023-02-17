@@ -1,0 +1,6 @@
+insert into report (id,status,created) values('uuuu','CREATED',current_date);
+commit;
+
+insert into report_parameters (id,report_id,name,value) values(1,'uuuu','name','value');
+insert into report_parameters (id,report_id,name,value) values(2,'uuuu','name2','value2');
+commit;

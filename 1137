@@ -1,0 +1,5 @@
+Нужно сделать сервис и назвать его MailLoggerService и сделать там методы logOperationStart logOperationSuccess и logOperationFailed.
+Нужно вынести if'ы из OperationGetAllCurrentEnpTask вот в этот класс!
+Это надо сделать в ru.element.async.service.service.task.impl для всех 5-ти классов.
+1137
+
