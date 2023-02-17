@@ -1,9 +1,0 @@
-com/ibs/report/controller/bean/ReportParameterBean.class
-com/ibs/report/controller/bean/ReportResponseBean.class
-ru/ibs/async/service/call/AsyncCallStart.class
-ru/element/async/service/dto/operation/OperationTypeDto.class
-ru/ibs/async/service/call/AsyncCallStart$RequestMethod.class
-ru/element/async/service/dto/operation/OperationStartDto.class
-ru/element/async/service/dto/operation/OperationPollDto.class
-com/ibs/report/controller/bean/ReportResponseBean$Status.class
-com/ibs/report/controller/bean/ReportResponseBean2.class
