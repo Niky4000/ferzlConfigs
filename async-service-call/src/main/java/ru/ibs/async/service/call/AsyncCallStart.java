@@ -28,6 +28,8 @@ public class AsyncCallStart {
 		map.put("Authorization", "Bearer eyJ2ZXIiOjEsInR5cCI6IkpXVCIsInNidCI6ImFjY2VzcyIsImFsZyI6IlJTMjU2In0.eyJuYmYiOjE2NDkxNjg1NTUsInNjb3BlIjoiaHR0cDpcL1wvZXNpYS5nb3N1c2x1Z2kucnVcL3Vzcl90cm0_bW9kZT13Jm9pZD0xMDAwNTQ2NjcyIGh0dHA6XC9cL2VzaWEuZ29zdXNsdWdpLnJ1XC91c3JfaW5mP21vZGU9dyZvaWQ9MTAwMDU0NjY3MiBvcGVuaWQgaHR0cDpcL1wvZXNpYS5nb3N1c2x1Z2kucnVcL3Vzcl9zZWM_bW9kZT13Jm9pZD0xMDAwNTQ2NjcyIiwiaXNzIjoiaHR0cDpcL1wvZXNpYS1wb3J0YWwxLnRlc3QuZ29zdXNsdWdpLnJ1XC8iLCJ1cm46ZXNpYTpzaWQiOiI2OWFmMDhlOS0wZTFlLTQzNjUtODgyMy1iMDE2NGUzMDNmMWEiLCJ1cm46ZXNpYTpzYmpfaWQiOjEwMDA1NDY2NzIsImV4cCI6MTY0OTE3OTM1NSwiaWF0IjoxNjQ5MTY4NTU1LCJjbGllbnRfaWQiOiJQR1UifQ.Q6ydWZ_7WiNhQgUA8atK2TjYwXsmPkin8sz-lC8huR9iQ0xFXmbgDOaA58Y4ZfZf1_VuuiwHPJ4YXE3K5deEfvOWaUQES95VfA4btq94K5tpWn1ugF4WqcZW3cf_MWCaBSvFH6dM06qAsrrTO2idpyVHYbot2nQTsi0a0wIgLT6dMAsKIO_uV_6SNnfkv4FETLGLgi-FQu2zA6RFuPHp3UyqagyWZeA0L7AWOntxa2vjDGte1IuIttPr_CO0TCmsQCivknW6H8CgOK2JkIxtdIb7gVbWljo2LCTVg9VdYtFFmopHyNU_P_hApwizprhmw_Bkqx-oGVE87_o5taiBRA");
 		map.put("Content-Type", "application/json");
 		map.put("User-Agent", USER_AGENT);
+		getEventChanges(asyncCallStart, map);
+//		createReport(asyncCallStart, map);
 //		LinkedHashMap<String, String> map = getAuthMap("developer", "GIcauW7ObTl198v4Xr9Q", "Basic");
 //		String startResult = asyncCallStart.sendPost("http://localhost:8080/api/async/operation/start", RequestMethod.POST, map, "{\n"
 //				+ "    \"type\": \"GET_ALL_CURRENT_ENP\",\n"
@@ -35,15 +37,7 @@ public class AsyncCallStart {
 //				+ "    \"source\": \"t-foms\"\n"
 //				+ "}");
 //		System.out.println(startResult);
-//		String pollResult = asyncCallStart.sendPost("http://localhost:8080/api/async/operation/poll", RequestMethod.POST, map, "{\n"
-//				+ "    \"opToken\": \"6bfc0336-3c60-4b0d-84ef-5f2b7e1fe413\""
-//				+ "}");
-//		System.out.println(pollResult);
-//		File file = new File("/home/me/tmp/pollResult");
-//		if (file.exists()) {
-//			file.delete();
-//		}
-//		Files.write(file.toPath(), pollResult.getBytes(), StandardOpenOption.CREATE_NEW);
+
 //		String startResult2 = asyncCallStart.sendPost("http://localhost:8080/api/async/operation/start", RequestMethod.POST, map, "{\n"
 //				+ "    \"type\": \"GET_ALL_CURRENT_ENP\",\n"
 //				+ "    \"data\": \"{\\\"id\\\":\\\"uuuu\\\",\\\"status\\\":\\\"NEW\\\",\\\"created\\\":1673902800000}\"\n"
@@ -55,12 +49,6 @@ public class AsyncCallStart {
 //				+ "    \"source\": \"t-foms\"\n"
 //				+ "}");
 //		System.out.println(startResult3);
-//		String startResult4 = asyncCallStart.sendPost("http://localhost:8080/api/async/operation/start", RequestMethod.POST, map, "{\n"
-//				+ "    \"type\": \"GET_CHANGES_EVENT\",\n"
-//				+ "    \"data\": \"{\\\"dtFrom\\\":\\\"2023-01-10\\\",\\\"dtTo\\\":\\\"2023-01-12\\\",\\\"terr\\\":\\\"34000\\\",\\\"smo\\\":\\\"44003\\\"}\",\n"
-//				+ "    \"source\": \"t-foms\"\n"
-//				+ "}");
-//		System.out.println(startResult4);
 //		String runtasksResult = asyncCallStart.sendPost("http://localhost:8080/api/async/test/runtasks", RequestMethod.GET, map);
 //		System.out.println(runtasksResult);
 //		String runpendingtasksResult = asyncCallStart.sendPost("http://localhost:8080/api/async/test/runpendingtasks", RequestMethod.GET, map);
@@ -106,7 +94,6 @@ public class AsyncCallStart {
 //				+ "    [\"6F9619FF-8B86-D011-B42D-00CF8FC964FF\", \"6F9619FF-8B88-D011-B42D-00CF4FC964FF\", \"6F9619FF-8B86-D011-B42D-00CF4FC964FF\"]\n"
 //				+ "");
 //		System.out.println(operationDetailsResult);
-
 //		String auth = "developer:GIcauW7ObTl198v4Xr9Q";
 //		byte[] encodedAuth = Base64.getEncoder().encode(auth.getBytes(StandardCharsets.UTF_8));
 //		AsyncCallStart asyncCallStart = new AsyncCallStart();
@@ -128,13 +115,6 @@ public class AsyncCallStart {
 //		String createReportResult = asyncCallStart.sendPost("http://localhost:8080/api/async/operation/kk", RequestMethod.POST, map, "\"23cf063b-d18c-42e3-a38b-7bfd5562319d\"");
 //		System.out.println(createReportResult);
 //
-//		Это тестовый пример!
-		ReportResponseBean reportResponseBean = new ReportResponseBean("44", ReportResponseBean.Status.NEW, new Date(), "sdd", null, OperationTypeDto.GET_ALL_CURRENT_ENP, "pdf", "t-foms", Arrays.asList(new ReportParameterBean(null, 1, "usr", "user1"), new ReportParameterBean(null, 2, "terr", "76000"), new ReportParameterBean(null, 3, "dt", "2022-09-04"), new ReportParameterBean(null, 4, "source", "t-foms"), new ReportParameterBean(null, 5, "accountId", "-1")));
-		String post = reportResponseBean.toPost();
-		System.out.println(post);
-		String startResult = asyncCallStart.sendPost("http://localhost:8082/api/mpi-report/operation/createReport", RequestMethod.POST, map, post);
-		System.out.println(startResult);
-//		Это тестовый пример!
 //
 //		String startResult = asyncCallStart.sendPost("http://localhost:8082/api/mpi-report/operation/isReady?id=23cf063b-d18c-42e3-a38b-7bfd5562319d", RequestMethod.GET, map, null);
 //		System.out.println(startResult);
@@ -148,6 +128,49 @@ public class AsyncCallStart {
 //				+ "}");
 //		String kkResult = asyncCallStart.sendPost("http://localhost:8081/api/file-keeper/kk", RequestMethod.POST, map, "{\"str\": \"qwerty\"}");
 //		System.out.println(kkResult);
+	}
+	private static final String PROCESSING = "PROCESSING";
+	private static final String NEW_VALUE = "NEW";
+
+	private static void getEventChanges(AsyncCallStart asyncCallStart, LinkedHashMap<String, String> map) throws Exception {
+		//		Это тестовый пример!
+		String startResult4 = asyncCallStart.sendPost("http://localhost:8080/api/async/operation/start", RequestMethod.POST, map, "{\n"
+				+ "    \"type\": \"GET_CHANGES_EVENT\",\n"
+				+ "    \"data\": \"{\\\"dtFrom\\\":\\\"2023-01-10\\\",\\\"dtTo\\\":\\\"2023-01-12\\\",\\\"terr\\\":\\\"34000\\\",\\\"smo\\\":\\\"44003\\\"}\",\n"
+				+ "    \"source\": \"t-foms\"\n"
+				+ "}");
+		System.out.println(startResult4);
+		String opToken = getValue(startResult4, "\"opToken\":\"", "\",\"errors\"");
+		String status = NEW_VALUE;
+		String pollResult = "";
+		while (status.equals(NEW_VALUE) || status.equals(PROCESSING)) {
+			Thread.sleep(2000);
+			pollResult = asyncCallStart.sendPost("http://localhost:8080/api/async/operation/poll", RequestMethod.POST, map, "{\n"
+					+ "    \"opToken\": \"" + opToken + "\""
+					+ "}");
+			status = getValue(pollResult, ",\"status\":\"", "\",\"content\"");
+			System.out.println(pollResult);
+		}
+		File file = new File("/home/me/tmp/pollResult");
+		if (file.exists()) {
+			file.delete();
+		}
+		Files.write(file.toPath(), pollResult.getBytes(), StandardOpenOption.CREATE_NEW);
+//		Это тестовый пример!
+	}
+
+	private static void createReport(AsyncCallStart asyncCallStart, LinkedHashMap<String, String> map) throws Exception {
+//		Это тестовый пример!
+		ReportResponseBean reportResponseBean = new ReportResponseBean("44", ReportResponseBean.Status.NEW, new Date(), "sdd", null, OperationTypeDto.GET_ALL_CURRENT_ENP, "pdf", "t-foms", Arrays.asList(new ReportParameterBean(null, 1, "usr", "user1"), new ReportParameterBean(null, 2, "terr", "76000"), new ReportParameterBean(null, 3, "dt", "2022-09-04"), new ReportParameterBean(null, 4, "source", "t-foms"), new ReportParameterBean(null, 5, "accountId", "-1")));
+		String post = reportResponseBean.toPost();
+		System.out.println(post);
+		String startResult = asyncCallStart.sendPost("http://localhost:8082/api/mpi-report/operation/createReport", RequestMethod.POST, map, post);
+		System.out.println(startResult);
+//		Это тестовый пример!
+	}
+
+	private static String getValue(String startResult4, String indexStr1, String indexStr2) {
+		return startResult4.substring(startResult4.indexOf(indexStr1) + indexStr1.length(), startResult4.indexOf(indexStr2));
 	}
 
 	private static final String USER_AGENT = "Apache-HttpClient/4.1.1 (java 1.5)";
@@ -172,14 +195,14 @@ public class AsyncCallStart {
 		headers.entrySet().forEach(entry -> con.setRequestProperty(entry.getKey(), entry.getValue()));
 		con.setDoOutput(true);
 		if (requestMethod.equals(RequestMethod.POST)) {
-			try ( DataOutputStream wr = new DataOutputStream(con.getOutputStream())) {
+			try (DataOutputStream wr = new DataOutputStream(con.getOutputStream())) {
 				wr.writeBytes(urlParameters);
 				wr.flush();
 			}
 		}
 		int responseCode = con.getResponseCode();
 		InputStream errorStream = getErrorStream(con);
-		try ( InputStream inputStream = (errorStream != null ? errorStream : getInputStream(con))) {
+		try (InputStream inputStream = (errorStream != null ? errorStream : getInputStream(con))) {
 			StringBuffer response = readResponse(con, inputStream);
 			if (responseCode != java.net.HttpURLConnection.HTTP_OK) {
 				throw new RuntimeException("Response code = " + responseCode + "!");
@@ -202,7 +225,7 @@ public class AsyncCallStart {
 
 	private StringBuffer readResponse(HttpURLConnection con, InputStream inputStream) throws IOException {
 		StringBuffer response = new StringBuffer();
-		try ( BufferedReader in = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8))) {
+		try (BufferedReader in = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8))) {
 			String inputLine;
 			while ((inputLine = in.readLine()) != null) {
 				response.append(inputLine);
