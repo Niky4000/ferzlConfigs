@@ -25,16 +25,20 @@ public class AsyncCallStart {
 	public static void main(String[] args) throws Exception {
 		AsyncCallStart asyncCallStart = new AsyncCallStart();
 		LinkedHashMap<String, String> map = getAuthMap();
-		getEventChanges(asyncCallStart, map);
-//		createReport(asyncCallStart, map);
 //		LinkedHashMap<String, String> map = getAuthMap("developer", "GIcauW7ObTl198v4Xr9Q", "Basic");
+//		sendQueryAndGetResult(asyncCallStart, map, "{\n" + "    \"type\": \"GET_CHANGES_EVENT\",\n" + "    \"data\": \"{\\\"dtFrom\\\":\\\"2023-01-10\\\",\\\"dtTo\\\":\\\"2023-01-12\\\",\\\"terr\\\":\\\"34000\\\",\\\"smo\\\":\\\"44003\\\"}\",\n" + "    \"source\": \"t-foms\"\n" + "}");
+//		sendQueryAndGetResult(asyncCallStart, map, "{\n" + "    \"type\": \"GET_VIEW_DATA_SOC_STATUS\",\n" + "    \"data\": \"{\\\"dt\\\":\\\"2022-07-01\\\",\\\"terr\\\":\\\"01000\\\",\\\"smo\\\":\\\"22000\\\",\\\"quarter\\\":\\\"true\\\"}\",\n" + "    \"source\": \"t-foms\"\n" + "}");
+//		sendQueryAndGetResult(asyncCallStart, map, "{\n" + "    \"type\": \"GET_VIEW_DATA_SOC_STATUS\",\n" + "    \"data\": \"{\\\"dt\\\":\\\"2022-07-01\\\",\\\"terr\\\":\\\"01000\\\",\\\"quarter\\\":\\\"true\\\"}\",\n" + "    \"source\": \"t-foms\"\n" + "}");
+//		sendQueryAndGetResult(asyncCallStart, map, "{\n" + "    \"type\": \"GET_VIEW_DATA_SOC_STATUS\",\n" + "    \"data\": \"{\\\"dt\\\":\\\"2023-03-01\\\",\\\"terr\\\":\\\"01000\\\",\\\"quarter\\\":\\\"false\\\"}\",\n" + "    \"source\": \"t-foms\"\n" + "}");
+//		createExampleReport(asyncCallStart, map);
+		createAttachedAndInsuredPersonsReport(asyncCallStart, map);
+
 //		String startResult = asyncCallStart.sendPost("http://localhost:8080/api/async/operation/start", RequestMethod.POST, map, "{\n"
 //				+ "    \"type\": \"GET_ALL_CURRENT_ENP\",\n"
 //				+ "    \"data\": \"{ \\\"usr\\\": \\\"user1\\\", \\\"terr\\\": \\\"76000\\\",\\\"dt\\\": \\\"2022-09-04\\\",\\\"source\\\": \\\"t-foms\\\",\\\"accountId\\\": \\\"-1\\\"}\",\n"
 //				+ "    \"source\": \"t-foms\"\n"
 //				+ "}");
 //		System.out.println(startResult);
-
 //		String startResult2 = asyncCallStart.sendPost("http://localhost:8080/api/async/operation/start", RequestMethod.POST, map, "{\n"
 //				+ "    \"type\": \"GET_ALL_CURRENT_ENP\",\n"
 //				+ "    \"data\": \"{\\\"id\\\":\\\"uuuu\\\",\\\"status\\\":\\\"NEW\\\",\\\"created\\\":1673902800000}\"\n"
@@ -132,19 +136,15 @@ public class AsyncCallStart {
 		map.put("Authorization", "Bearer eyJ2ZXIiOjEsInR5cCI6IkpXVCIsInNidCI6ImFjY2VzcyIsImFsZyI6IlJTMjU2In0.eyJuYmYiOjE2NDkxNjg1NTUsInNjb3BlIjoiaHR0cDpcL1wvZXNpYS5nb3N1c2x1Z2kucnVcL3Vzcl90cm0_bW9kZT13Jm9pZD0xMDAwNTQ2NjcyIGh0dHA6XC9cL2VzaWEuZ29zdXNsdWdpLnJ1XC91c3JfaW5mP21vZGU9dyZvaWQ9MTAwMDU0NjY3MiBvcGVuaWQgaHR0cDpcL1wvZXNpYS5nb3N1c2x1Z2kucnVcL3Vzcl9zZWM_bW9kZT13Jm9pZD0xMDAwNTQ2NjcyIiwiaXNzIjoiaHR0cDpcL1wvZXNpYS1wb3J0YWwxLnRlc3QuZ29zdXNsdWdpLnJ1XC8iLCJ1cm46ZXNpYTpzaWQiOiI2OWFmMDhlOS0wZTFlLTQzNjUtODgyMy1iMDE2NGUzMDNmMWEiLCJ1cm46ZXNpYTpzYmpfaWQiOjEwMDA1NDY2NzIsImV4cCI6MTY0OTE3OTM1NSwiaWF0IjoxNjQ5MTY4NTU1LCJjbGllbnRfaWQiOiJQR1UifQ.Q6ydWZ_7WiNhQgUA8atK2TjYwXsmPkin8sz-lC8huR9iQ0xFXmbgDOaA58Y4ZfZf1_VuuiwHPJ4YXE3K5deEfvOWaUQES95VfA4btq94K5tpWn1ugF4WqcZW3cf_MWCaBSvFH6dM06qAsrrTO2idpyVHYbot2nQTsi0a0wIgLT6dMAsKIO_uV_6SNnfkv4FETLGLgi-FQu2zA6RFuPHp3UyqagyWZeA0L7AWOntxa2vjDGte1IuIttPr_CO0TCmsQCivknW6H8CgOK2JkIxtdIb7gVbWljo2LCTVg9VdYtFFmopHyNU_P_hApwizprhmw_Bkqx-oGVE87_o5taiBRA");
 		map.put("Content-Type", "application/json");
 		map.put("User-Agent", USER_AGENT);
-		map.put("X-Auth-Token", "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzZXNzaW9uLWlkIjoiYjgzNmY5MGYtZmQyOC00YjhjLTkxMDgtMzczZDc5OTE4ZjExIn0.VPnzhgPC57LKDAVJyOLznNp0iLrWxZV7BKSfM6A7-X8");
+		map.put("X-Auth-Token", "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzZXNzaW9uLWlkIjoiZjE2M2IyY2EtMjEyYS00NGY3LWIzNTAtZmVmYmEwNTg2ODg2In0.OaNAkNR3SZNXbWE24kEbLF2VS0JmCRrs5_04AN60IdM");
 		return map;
 	}
 	private static final String PROCESSING = "PROCESSING";
 	private static final String NEW_VALUE = "NEW";
 
-	private static void getEventChanges(AsyncCallStart asyncCallStart, LinkedHashMap<String, String> map) throws Exception {
+	private static void sendQueryAndGetResult(AsyncCallStart asyncCallStart, LinkedHashMap<String, String> map, String data) throws Exception {
 		//		Это тестовый пример!
-		String startResult4 = asyncCallStart.sendPost("http://localhost:8080/api/async/operation/start", RequestMethod.POST, map, "{\n"
-				+ "    \"type\": \"GET_CHANGES_EVENT\",\n"
-				+ "    \"data\": \"{\\\"dtFrom\\\":\\\"2023-01-10\\\",\\\"dtTo\\\":\\\"2023-01-12\\\",\\\"terr\\\":\\\"34000\\\",\\\"smo\\\":\\\"44003\\\"}\",\n"
-				+ "    \"source\": \"t-foms\"\n"
-				+ "}");
+		String startResult4 = asyncCallStart.sendPost("http://localhost:8080/api/async/operation/start", RequestMethod.POST, map, data);
 		System.out.println(startResult4);
 		String opToken = getValue(startResult4, "\"opToken\":\"", "\",\"errors\"");
 		String status = NEW_VALUE;
@@ -165,7 +165,7 @@ public class AsyncCallStart {
 //		Это тестовый пример!
 	}
 
-	private static void createReport(AsyncCallStart asyncCallStart, LinkedHashMap<String, String> map) throws Exception {
+	private static void createExampleReport(AsyncCallStart asyncCallStart, LinkedHashMap<String, String> map) throws Exception {
 //		Это тестовый пример!
 		ReportResponseBean reportResponseBean = new ReportResponseBean("44", ReportResponseBean.Status.NEW, new Date(), "sdd", null, OperationTypeDto.GET_ALL_CURRENT_ENP, "pdf", "t-foms", Arrays.asList(new ReportParameterBean(null, 1, "usr", "user1"), new ReportParameterBean(null, 2, "terr", "76000"), new ReportParameterBean(null, 3, "dt", "2022-09-04"), new ReportParameterBean(null, 4, "source", "t-foms"), new ReportParameterBean(null, 5, "accountId", "-1")));
 		String post = reportResponseBean.toPost();
@@ -175,6 +175,15 @@ public class AsyncCallStart {
 //		Это тестовый пример!
 	}
 
+	private static void createAttachedAndInsuredPersonsReport(AsyncCallStart asyncCallStart, LinkedHashMap<String, String> map) throws Exception {
+//		Это тестовый пример!
+		ReportResponseBean reportResponseBean = new ReportResponseBean("44", ReportResponseBean.Status.NEW, new Date(), "sdd", null, OperationTypeDto.ATTACHED_AND_INSURED_PERSONS_REPORT_TASK, "pdf", "t-foms", Arrays.asList(new ReportParameterBean(null, 1, "usr", "user1"), new ReportParameterBean(null, 2, "terr", "76000"), new ReportParameterBean(null, 3, "dt", "2022-09-04"), new ReportParameterBean(null, 4, "source", "t-foms"), new ReportParameterBean(null, 5, "accountId", "-1")));
+		String post = reportResponseBean.toPost();
+		System.out.println(post);
+		String startResult = asyncCallStart.sendPost("http://localhost:8082/api/mpi-report/operation/start", RequestMethod.POST, map, post);
+		System.out.println(startResult);
+//		Это тестовый пример!
+	}
 	private static String getValue(String startResult4, String indexStr1, String indexStr2) {
 		return startResult4.substring(startResult4.indexOf(indexStr1) + indexStr1.length(), startResult4.indexOf(indexStr2));
 	}
@@ -201,14 +210,14 @@ public class AsyncCallStart {
 		headers.entrySet().forEach(entry -> con.setRequestProperty(entry.getKey(), entry.getValue()));
 		con.setDoOutput(true);
 		if (requestMethod.equals(RequestMethod.POST)) {
-			try (DataOutputStream wr = new DataOutputStream(con.getOutputStream())) {
+			try ( DataOutputStream wr = new DataOutputStream(con.getOutputStream())) {
 				wr.writeBytes(urlParameters);
 				wr.flush();
 			}
 		}
 		int responseCode = con.getResponseCode();
 		InputStream errorStream = getErrorStream(con);
-		try (InputStream inputStream = (errorStream != null ? errorStream : getInputStream(con))) {
+		try ( InputStream inputStream = (errorStream != null ? errorStream : getInputStream(con))) {
 			StringBuffer response = readResponse(con, inputStream);
 			if (responseCode != java.net.HttpURLConnection.HTTP_OK) {
 				throw new RuntimeException("Response code = " + responseCode + "!");
@@ -231,7 +240,7 @@ public class AsyncCallStart {
 
 	private StringBuffer readResponse(HttpURLConnection con, InputStream inputStream) throws IOException {
 		StringBuffer response = new StringBuffer();
-		try (BufferedReader in = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8))) {
+		try ( BufferedReader in = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8))) {
 			String inputLine;
 			while ((inputLine = in.readLine()) != null) {
 				response.append(inputLine);
