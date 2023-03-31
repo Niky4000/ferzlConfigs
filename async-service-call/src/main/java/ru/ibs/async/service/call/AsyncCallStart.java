@@ -30,6 +30,8 @@ public class AsyncCallStart {
 //		sendQueryAndGetResult(asyncCallStart, map, "{\n" + "    \"type\": \"GET_VIEW_DATA_SOC_STATUS\",\n" + "    \"data\": \"{\\\"dt\\\":\\\"2022-07-01\\\",\\\"terr\\\":\\\"01000\\\",\\\"smo\\\":\\\"22000\\\",\\\"quarter\\\":\\\"true\\\"}\",\n" + "    \"source\": \"t-foms\"\n" + "}");
 //		sendQueryAndGetResult(asyncCallStart, map, "{\n" + "    \"type\": \"GET_VIEW_DATA_SOC_STATUS\",\n" + "    \"data\": \"{\\\"dt\\\":\\\"2022-07-01\\\",\\\"terr\\\":\\\"01000\\\",\\\"quarter\\\":\\\"true\\\"}\",\n" + "    \"source\": \"t-foms\"\n" + "}");
 //		sendQueryAndGetResult(asyncCallStart, map, "{\n" + "    \"type\": \"GET_VIEW_DATA_SOC_STATUS\",\n" + "    \"data\": \"{\\\"dt\\\":\\\"2023-03-01\\\",\\\"terr\\\":\\\"01000\\\",\\\"quarter\\\":\\\"false\\\"}\",\n" + "    \"source\": \"t-foms\"\n" + "}");
+//		sendQueryAndGetResult(asyncCallStart, map, "{\n" + "    \"type\": \"GET_VIEW_DATA_INSURANCE\",\n" + "    \"data\": \"{\\\"dt\\\":\\\"2023-03-24\\\",\\\"terr\\\":\\\"01000\\\"}\",\n" + "    \"source\": \"t-foms\"\n" + "}");
+//		sendQueryAndGetResult(asyncCallStart, map, "{\n" + "    \"type\": \"GET_VIEW_DATA_SOC_STATUS\",\n" + "    \"data\": \"{\\\"dt\\\":\\\"2023-03-24\\\",\\\"terr\\\":\\\"01000\\\",\\\"quarter\\\":\\\"false\\\"}\",\n" + "    \"source\": \"t-foms\"\n" + "}");
 //		createExampleReport(asyncCallStart, map);
 		createAttachedAndInsuredPersonsReport(asyncCallStart, map);
 
@@ -177,13 +179,14 @@ public class AsyncCallStart {
 
 	private static void createAttachedAndInsuredPersonsReport(AsyncCallStart asyncCallStart, LinkedHashMap<String, String> map) throws Exception {
 //		Это тестовый пример!
-		ReportResponseBean reportResponseBean = new ReportResponseBean("44", ReportResponseBean.Status.NEW, new Date(), "sdd", null, OperationTypeDto.ATTACHED_AND_INSURED_PERSONS_REPORT_TASK, "pdf", "t-foms", Arrays.asList(new ReportParameterBean(null, 1, "usr", "user1"), new ReportParameterBean(null, 2, "terr", "76000"), new ReportParameterBean(null, 3, "dt", "2022-09-04"), new ReportParameterBean(null, 4, "source", "t-foms"), new ReportParameterBean(null, 5, "accountId", "-1")));
+		ReportResponseBean reportResponseBean = new ReportResponseBean("44", ReportResponseBean.Status.NEW, new Date(), "sdd", null, OperationTypeDto.REPORT_FOMS_INSURED_PERSONS_AND_ATTACHES, "pdf", "t-foms", Arrays.asList(new ReportParameterBean(null, 1, "usr", "user1"), new ReportParameterBean(null, 2, "dt", "2022-09-04"), new ReportParameterBean(null, 4, "source", "t-foms"), new ReportParameterBean(null, 5, "accountId", "-1")));
 		String post = reportResponseBean.toPost();
 		System.out.println(post);
 		String startResult = asyncCallStart.sendPost("http://localhost:8082/api/mpi-report/operation/start", RequestMethod.POST, map, post);
 		System.out.println(startResult);
 //		Это тестовый пример!
 	}
+
 	private static String getValue(String startResult4, String indexStr1, String indexStr2) {
 		return startResult4.substring(startResult4.indexOf(indexStr1) + indexStr1.length(), startResult4.indexOf(indexStr2));
 	}
