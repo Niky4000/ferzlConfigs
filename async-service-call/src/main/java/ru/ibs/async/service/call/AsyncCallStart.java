@@ -32,6 +32,7 @@ public class AsyncCallStart {
 //		sendQueryAndGetResult(asyncCallStart, map, "{\n" + "    \"type\": \"GET_VIEW_DATA_SOC_STATUS\",\n" + "    \"data\": \"{\\\"dt\\\":\\\"2023-03-01\\\",\\\"terr\\\":\\\"01000\\\",\\\"quarter\\\":\\\"false\\\"}\",\n" + "    \"source\": \"t-foms\"\n" + "}");
 //		sendQueryAndGetResult(asyncCallStart, map, "{\n" + "    \"type\": \"GET_VIEW_DATA_INSURANCE\",\n" + "    \"data\": \"{\\\"dt\\\":\\\"2023-03-24\\\",\\\"terr\\\":\\\"01000\\\"}\",\n" + "    \"source\": \"t-foms\"\n" + "}");
 //		sendQueryAndGetResult(asyncCallStart, map, "{\n" + "    \"type\": \"GET_VIEW_DATA_SOC_STATUS\",\n" + "    \"data\": \"{\\\"dt\\\":\\\"2023-03-24\\\",\\\"terr\\\":\\\"01000\\\",\\\"quarter\\\":\\\"false\\\"}\",\n" + "    \"source\": \"t-foms\"\n" + "}");
+//		sendQueryAndGetResult(asyncCallStart, map, "{\n" + "    \"type\": \"REPORT_FOMS_INSURED_PERSONS_AND_ATTACHES\",\n" + "    \"data\": \"{\\\"user\\\":\\\"user\\\",\\\"dt\\\":\\\"2023-01-01\\\",\\\"source\\\":\\\"t-foms\\\",\\\"accountId\\\":\\\"accountId\\\"}\",\n" + "    \"source\": \"t-foms\"\n" + "}");
 //		createExampleReport(asyncCallStart, map);
 		createAttachedAndInsuredPersonsReport(asyncCallStart, map);
 
@@ -179,7 +180,7 @@ public class AsyncCallStart {
 
 	private static void createAttachedAndInsuredPersonsReport(AsyncCallStart asyncCallStart, LinkedHashMap<String, String> map) throws Exception {
 //		Это тестовый пример!
-		ReportResponseBean reportResponseBean = new ReportResponseBean("44", ReportResponseBean.Status.NEW, new Date(), "sdd", null, OperationTypeDto.REPORT_FOMS_INSURED_PERSONS_AND_ATTACHES, "pdf", "t-foms", Arrays.asList(new ReportParameterBean(null, 1, "usr", "user1"), new ReportParameterBean(null, 2, "dt", "2022-09-04"), new ReportParameterBean(null, 4, "source", "t-foms"), new ReportParameterBean(null, 5, "accountId", "-1")));
+		ReportResponseBean reportResponseBean = new ReportResponseBean("44", ReportResponseBean.Status.NEW, new Date(), "sdd", null, OperationTypeDto.REPORT_FOMS_INSURED_PERSONS_AND_ATTACHES, "pdf", "t-foms", Arrays.asList(new ReportParameterBean(null, 1, "usr", "user1"), new ReportParameterBean(null, 2, "dt", "2023-01-01"), new ReportParameterBean(null, 4, "source", "t-foms"), new ReportParameterBean(null, 5, "accountId", "-1")));
 		String post = reportResponseBean.toPost();
 		System.out.println(post);
 		String startResult = asyncCallStart.sendPost("http://localhost:8082/api/mpi-report/operation/start", RequestMethod.POST, map, post);
@@ -213,14 +214,14 @@ public class AsyncCallStart {
 		headers.entrySet().forEach(entry -> con.setRequestProperty(entry.getKey(), entry.getValue()));
 		con.setDoOutput(true);
 		if (requestMethod.equals(RequestMethod.POST)) {
-			try ( DataOutputStream wr = new DataOutputStream(con.getOutputStream())) {
+			try (DataOutputStream wr = new DataOutputStream(con.getOutputStream())) {
 				wr.writeBytes(urlParameters);
 				wr.flush();
 			}
 		}
 		int responseCode = con.getResponseCode();
 		InputStream errorStream = getErrorStream(con);
-		try ( InputStream inputStream = (errorStream != null ? errorStream : getInputStream(con))) {
+		try (InputStream inputStream = (errorStream != null ? errorStream : getInputStream(con))) {
 			StringBuffer response = readResponse(con, inputStream);
 			if (responseCode != java.net.HttpURLConnection.HTTP_OK) {
 				throw new RuntimeException("Response code = " + responseCode + "!");
@@ -243,7 +244,7 @@ public class AsyncCallStart {
 
 	private StringBuffer readResponse(HttpURLConnection con, InputStream inputStream) throws IOException {
 		StringBuffer response = new StringBuffer();
-		try ( BufferedReader in = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8))) {
+		try (BufferedReader in = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8))) {
 			String inputLine;
 			while ((inputLine = in.readLine()) != null) {
 				response.append(inputLine);
