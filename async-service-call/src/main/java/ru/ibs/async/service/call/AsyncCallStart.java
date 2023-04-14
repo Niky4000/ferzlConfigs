@@ -35,6 +35,8 @@ public class AsyncCallStart {
 //		sendQueryAndGetResult(asyncCallStart, map, "{\n" + "    \"type\": \"REPORT_FOMS_INSURED_PERSONS_AND_ATTACHES\",\n" + "    \"data\": \"{\\\"user\\\":\\\"user\\\",\\\"dt\\\":\\\"2023-01-01\\\",\\\"source\\\":\\\"t-foms\\\",\\\"accountId\\\":\\\"accountId\\\"}\",\n" + "    \"source\": \"t-foms\"\n" + "}");
 //		createExampleReport(asyncCallStart, map);
 		createAttachedAndInsuredPersonsReport(asyncCallStart, map);
+//		getReportStatus("0cd6aef2-978f-4285-a3b4-df44b29d2e38", map, asyncCallStart);
+//		getReportMetaInfo(map, asyncCallStart);
 
 //		String startResult = asyncCallStart.sendPost("http://localhost:8080/api/async/operation/start", RequestMethod.POST, map, "{\n"
 //				+ "    \"type\": \"GET_ALL_CURRENT_ENP\",\n"
@@ -188,6 +190,16 @@ public class AsyncCallStart {
 //		Это тестовый пример!
 	}
 
+	private static void getReportStatus(String reportId, LinkedHashMap<String, String> map, AsyncCallStart asyncCallStart) throws Exception {
+		String response = asyncCallStart.sendPost("http://localhost:8082/api/mpi-report/operation/poll/" + reportId, RequestMethod.GET, map, null);
+		System.out.println(response);
+	}
+
+	private static void getReportMetaInfo(LinkedHashMap<String, String> map, AsyncCallStart asyncCallStart) throws Exception {
+		String response = asyncCallStart.sendPost("http://localhost:8082/api/mpi-report/operation/getReportListMetaInfo", RequestMethod.GET, map, null);
+		System.out.println(response);
+	}
+
 	private static String getValue(String startResult4, String indexStr1, String indexStr2) {
 		return startResult4.substring(startResult4.indexOf(indexStr1) + indexStr1.length(), startResult4.indexOf(indexStr2));
 	}
@@ -214,14 +226,14 @@ public class AsyncCallStart {
 		headers.entrySet().forEach(entry -> con.setRequestProperty(entry.getKey(), entry.getValue()));
 		con.setDoOutput(true);
 		if (requestMethod.equals(RequestMethod.POST)) {
-			try (DataOutputStream wr = new DataOutputStream(con.getOutputStream())) {
+			try ( DataOutputStream wr = new DataOutputStream(con.getOutputStream())) {
 				wr.writeBytes(urlParameters);
 				wr.flush();
 			}
 		}
 		int responseCode = con.getResponseCode();
 		InputStream errorStream = getErrorStream(con);
-		try (InputStream inputStream = (errorStream != null ? errorStream : getInputStream(con))) {
+		try ( InputStream inputStream = (errorStream != null ? errorStream : getInputStream(con))) {
 			StringBuffer response = readResponse(con, inputStream);
 			if (responseCode != java.net.HttpURLConnection.HTTP_OK) {
 				throw new RuntimeException("Response code = " + responseCode + "!");
@@ -244,7 +256,7 @@ public class AsyncCallStart {
 
 	private StringBuffer readResponse(HttpURLConnection con, InputStream inputStream) throws IOException {
 		StringBuffer response = new StringBuffer();
-		try (BufferedReader in = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8))) {
+		try ( BufferedReader in = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8))) {
 			String inputLine;
 			while ((inputLine = in.readLine()) != null) {
 				response.append(inputLine);
