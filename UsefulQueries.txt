@@ -5,9 +5,24 @@ left outer join doc_content dcin on dcin.uuid = ao.doc_content_uuid
 left outer join doc_content dcout on dcout.uuid = aor.doc_content_uuid 
 where ao.op_token = '8fe9814b-b8cd-4cde-bb03-d99b36338823';
 
+select ao.uuid ,ao.op_type, ao.status,aor.status as status2,aor.create_date, ao.create_date, dcin."content" as in_, dcout."content" as out_, dcout.link, dcin.uuid, dcout.uuid 
+from async_op ao 
+left outer join async_op_res aor on aor.async_op_uuid = ao.uuid 
+left outer join doc_content dcin on dcin.uuid = ao.doc_content_uuid  
+left outer join doc_content dcout on dcout.uuid = aor.doc_content_uuid
+where ao.op_token = '43b6f068-51c7-4c05-839a-1f15848b1dad';
+
 select dc.* from async_op ao 
 inner join async_op_res aor on aor.async_op_uuid = ao.uuid 
 inner join doc_content dc on aor.doc_content_uuid = dc.uuid 
 where ao.op_token  = '12ffb9d6-5ec7-4bf3-871a-9cd33fa31e9f';
 
+select * from pending_tasks pt
+inner join async_op_res aor on aor.uuid=pt.async_op_res_uuid 
+left outer join doc_content dc on dc.uuid = aor.doc_content_uuid 
+where pt.doc_content_uuid in ('76a4e3e5-7955-4db9-9ff2-29f6f9a4197a','bf78af7f-b948-4eeb-8947-f8d7e1b1ac28','fb3dcc04-be6e-4953-b1ea-2cc2ede648d7');
+
+
 select * from async_op where op_type ='8fe9814b-b8cd-4cde-bb03-d99b36338823';
+
+
