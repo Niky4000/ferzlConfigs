@@ -40,20 +40,20 @@ public class AsyncCallStart {
 //		LinkedHashMap<String, String> map = getAuthMap("developer", "GIcauW7ObTl198v4Xr9Q", "Basic");
 //		sendQueryAndGetResult(asyncCallStart, map, "{\n" + "    \"type\": \"GET_CHANGES_EVENT\",\n" + "    \"data\": \"{\\\"dtFrom\\\":\\\"2023-01-10\\\",\\\"dtTo\\\":\\\"2023-01-12\\\",\\\"terr\\\":\\\"34000\\\",\\\"smo\\\":\\\"44003\\\"}\",\n" + "    \"source\": \"t-foms\"\n" + "}");
 //		sendQueryAndGetResult(asyncCallStart, map, "{\n" + "    \"type\": \"GET_VIEW_DATA_SOC_STATUS\",\n" + "    \"data\": \"{\\\"dt\\\":\\\"2022-07-01\\\",\\\"terr\\\":\\\"01000\\\",\\\"smo\\\":\\\"22000\\\",\\\"quarter\\\":\\\"true\\\"}\",\n" + "    \"source\": \"t-foms\"\n" + "}");
-		sendQueryAndGetResult(asyncCallStart, map, "{\n" + "    \"type\": \"GET_VIEW_DATA_SOC_STATUS\",\n" + "    \"data\": \"{\\\"dt\\\":\\\"2022-07-01\\\",\\\"terr\\\":\\\"01000\\\",\\\"quarter\\\":\\\"true\\\"}\",\n" + "    \"source\": \"t-foms\"\n" + "}");
+//		sendQueryAndGetResult(asyncCallStart, map, "{\n" + "    \"type\": \"GET_VIEW_DATA_SOC_STATUS\",\n" + "    \"data\": \"{\\\"dt\\\":\\\"2022-07-01\\\",\\\"terr\\\":\\\"01000\\\",\\\"quarter\\\":\\\"true\\\"}\",\n" + "    \"source\": \"t-foms\"\n" + "}");
 //		sendQueryAndGetResult(asyncCallStart, map, "{\n" + "    \"type\": \"GET_VIEW_DATA_SOC_STATUS\",\n" + "    \"data\": \"{\\\"dt\\\":\\\"2023-03-01\\\",\\\"terr\\\":\\\"01000\\\",\\\"quarter\\\":\\\"false\\\"}\",\n" + "    \"source\": \"t-foms\"\n" + "}");
 //		sendQueryAndGetResult(asyncCallStart, map, "{\n" + "    \"type\": \"GET_VIEW_DATA_INSURANCE\",\n" + "    \"data\": \"{\\\"dt\\\":\\\"2023-03-24\\\",\\\"terr\\\":\\\"01000\\\"}\",\n" + "    \"source\": \"t-foms\"\n" + "}");
 //		sendQueryAndGetResult(asyncCallStart, map, "{\n" + "    \"type\": \"GET_VIEW_DATA_SOC_STATUS\",\n" + "    \"data\": \"{\\\"dt\\\":\\\"2023-03-24\\\",\\\"terr\\\":\\\"01000\\\",\\\"quarter\\\":\\\"false\\\"}\",\n" + "    \"source\": \"t-foms\"\n" + "}");
 //		sendQueryAndGetResult(asyncCallStart, map, "{\n" + "    \"type\": \"REPORT_FOMS_INSURED_PERSONS_AND_ATTACHES\",\n" + "    \"data\": \"{\\\"user\\\":\\\"user\\\",\\\"dt\\\":\\\"2023-03-01\\\",\\\"source\\\":\\\"t-foms\\\",\\\"accountId\\\":\\\"accountId\\\"}\",\n" + "    \"source\": \"t-foms\"\n" + "}");
 //		createExampleReport(asyncCallStart, map);
-		createAttachedAndInsuredPersonsReport(asyncCallStart, map);
-//		sendQueryAndGetResult(asyncCallStart, map, "{\n" + "    \"type\": \"SUSPEND_OMS_POLICY\",\n" + "    \"data\": \"{"
-//				+ "\\\"request\\\":{\\\"suspendOmsPolicyRequestType\\\":[{\\\"oip\\\":null,\\\"localPersonIndex\\\":\\\"644cef5c-ba22-4f01-b9d3-2af8c1b26222\\\","
-//				+ "\\\"p\\\":{\\\"firstName\\\":\\\"" + r("Алексей") + "\\\",\\\"surname\\\":\\\"" + r("Мышкин") + "\\\",\\\"patronymic\\\":\\\"" + r("Олегович") + "\\\",\\\"birthDay\\\":\\\"1998-02-17\\\"},"
-//				+ "\\\"dudl\\\":{\\\"dudlType\\\":\\\"14\\\",\\\"dudlSer\\\":\\\"23 76\\\",\\\"dudlNum\\\":\\\"898419\\\"},"
-//				+ "\\\"snils\\\":null,"
-//				+ "\\\"milSvc\\\":{\\\"startDate\\\":\\\"2022-05-02\\\",\\\"endDate\\\":\\\"2023-05-02\\\",\\\"termInMonths\\\":12}"
-//				+ "}]}}\",\n" + "    \"source\": \"t-foms\"\n" + "}");
+//		createAttachedAndInsuredPersonsReport(asyncCallStart, map);
+		sendQueryAndGetResult(asyncCallStart, map, "{\n" + "    \"type\": \"SUSPEND_OMS_POLICY\",\n" + "    \"data\": \"{"
+				+ "\\\"request\\\":{\\\"suspendOmsPolicyRequestType\\\":[{\\\"oip\\\":null,\\\"localPersonIndex\\\":\\\"644cef5c-ba22-4f01-b9d3-2af8c1b26222\\\","
+				+ "\\\"p\\\":{\\\"firstName\\\":\\\"" + r("Алексей") + "\\\",\\\"surname\\\":\\\"" + r("Мышкин") + "\\\",\\\"patronymic\\\":\\\"" + r("Олегович") + "\\\",\\\"birthDay\\\":\\\"1998-02-17\\\"},"
+				+ "\\\"dudl\\\":{\\\"dudlType\\\":\\\"14\\\",\\\"dudlSer\\\":\\\"23 76\\\",\\\"dudlNum\\\":\\\"898419\\\"},"
+				+ "\\\"snils\\\":null,"
+				+ "\\\"milSvc\\\":{\\\"startDate\\\":\\\"2022-05-02\\\",\\\"endDate\\\":\\\"2023-05-02\\\",\\\"termInMonths\\\":12}"
+				+ "}]}}\",\n" + "    \"source\": \"t-foms\"\n" + "}");
 //		sendQueryAndGetResult(asyncCallStart, map, "{\n" + "    \"type\": \"SUSPEND_OMS_POLICY\",\n" + "    \"data\": \"{\\\"dt\\\":\\\"2022-07-01\\\",\\\"terr\\\":\\\"01000\\\",\\\"quarter\\\":\\\"true\\\"}\",\n" + "    \"source\": \"t-foms\"\n" + "}");
 //		getReportStatus("0cd6aef2-978f-4285-a3b4-df44b29d2e38", map, asyncCallStart);
 //		getReportMetaInfo(map, asyncCallStart);
