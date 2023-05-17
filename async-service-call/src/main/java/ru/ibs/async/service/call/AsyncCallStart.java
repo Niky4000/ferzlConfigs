@@ -14,7 +14,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.Socket;
 import java.net.URL;
@@ -47,13 +46,14 @@ public class AsyncCallStart {
 //		sendQueryAndGetResult(asyncCallStart, map, "{\n" + "    \"type\": \"REPORT_FOMS_INSURED_PERSONS_AND_ATTACHES\",\n" + "    \"data\": \"{\\\"user\\\":\\\"user\\\",\\\"dt\\\":\\\"2023-03-01\\\",\\\"source\\\":\\\"t-foms\\\",\\\"accountId\\\":\\\"accountId\\\"}\",\n" + "    \"source\": \"t-foms\"\n" + "}");
 //		createExampleReport(asyncCallStart, map);
 //		createAttachedAndInsuredPersonsReport(asyncCallStart, map);
-		sendQueryAndGetResult(asyncCallStart, map, "{\n" + "    \"type\": \"SUSPEND_OMS_POLICY\",\n" + "    \"data\": \"{"
-				+ "\\\"request\\\":{\\\"suspendOmsPolicyRequestType\\\":[{\\\"oip\\\":null,\\\"localPersonIndex\\\":\\\"644cef5c-ba22-4f01-b9d3-2af8c1b26222\\\","
-				+ "\\\"p\\\":{\\\"firstName\\\":\\\"" + r("Алексей") + "\\\",\\\"surname\\\":\\\"" + r("Мышкин") + "\\\",\\\"patronymic\\\":\\\"" + r("Олегович") + "\\\",\\\"birthDay\\\":\\\"1998-02-17\\\"},"
-				+ "\\\"dudl\\\":{\\\"dudlType\\\":\\\"14\\\",\\\"dudlSer\\\":\\\"23 76\\\",\\\"dudlNum\\\":\\\"898419\\\"},"
-				+ "\\\"snils\\\":null,"
-				+ "\\\"milSvc\\\":{\\\"startDate\\\":\\\"2022-05-02\\\",\\\"endDate\\\":\\\"2023-05-02\\\",\\\"termInMonths\\\":12}"
-				+ "}]}}\",\n" + "    \"source\": \"t-foms\"\n" + "}");
+		createStatisticsReport(asyncCallStart, map);
+//		sendQueryAndGetResult(asyncCallStart, map, "{\n" + "    \"type\": \"SUSPEND_OMS_POLICY\",\n" + "    \"data\": \"{"
+//				+ "\\\"request\\\":{\\\"suspendOmsPolicyRequestType\\\":[{\\\"oip\\\":null,\\\"localPersonIndex\\\":\\\"644cef5c-ba22-4f01-b9d3-2af8c1b26222\\\","
+//				+ "\\\"p\\\":{\\\"firstName\\\":\\\"" + r("Алексей") + "\\\",\\\"surname\\\":\\\"" + r("Мышкин") + "\\\",\\\"patronymic\\\":\\\"" + r("Олегович") + "\\\",\\\"birthDay\\\":\\\"1998-02-17\\\"},"
+//				+ "\\\"dudl\\\":{\\\"dudlType\\\":\\\"14\\\",\\\"dudlSer\\\":\\\"23 76\\\",\\\"dudlNum\\\":\\\"898419\\\"},"
+//				+ "\\\"snils\\\":null,"
+//				+ "\\\"milSvc\\\":{\\\"startDate\\\":\\\"2022-05-02\\\",\\\"endDate\\\":\\\"2023-05-02\\\",\\\"termInMonths\\\":12}"
+//				+ "}]}}\",\n" + "    \"source\": \"t-foms\"\n" + "}");
 //		sendQueryAndGetResult(asyncCallStart, map, "{\n" + "    \"type\": \"SUSPEND_OMS_POLICY\",\n" + "    \"data\": \"{\\\"dt\\\":\\\"2022-07-01\\\",\\\"terr\\\":\\\"01000\\\",\\\"quarter\\\":\\\"true\\\"}\",\n" + "    \"source\": \"t-foms\"\n" + "}");
 //		getReportStatus("0cd6aef2-978f-4285-a3b4-df44b29d2e38", map, asyncCallStart);
 //		getReportMetaInfo(map, asyncCallStart);
@@ -265,6 +265,18 @@ public class AsyncCallStart {
 //		Это тестовый пример!
 	}
 
+	private static void createStatisticsReport(AsyncCallStart asyncCallStart, LinkedHashMap<String, String> map) throws Exception {
+//		Это тестовый пример!
+//		ReportResponseBean reportResponseBean = new ReportResponseBean("44", ReportResponseBean.Status.NEW, new Date(), "sdd", null, OperationTypeDto.REPORT_FOMS_INSURED_PERSONS_AND_ATTACHES, "pdf", "t-foms", Arrays.asList(new ReportParameterBean(null, 1, "usr", "user1"), new ReportParameterBean(null, 2, "dt", "2023-01-01"), new ReportParameterBean(null, 4, "source", "t-foms"), new ReportParameterBean(null, 5, "accountId", "-1")));
+//		String post = reportResponseBean.toPost();
+		ReportCreateDto reportCreateDto = new ReportCreateDto(OperationType.TFOMS_CALL_METHOD_STATISTICS_REPORT, "t-foms", "xls", Arrays.asList(new ReportParameter("dateReq", "2023-03-01"), new ReportParameter("source", "t-foms"), new ReportParameter("accountId", "-1")));
+		String post = reportCreateDto.toPost();
+		System.out.println(post);
+		String startResult = asyncCallStart.sendPost("http://localhost:8082/api/mpi-report/operation/start", RequestMethod.POST, map, post);
+		System.out.println(startResult);
+//		Это тестовый пример!
+	}
+	
 	private static void getReportStatus(String reportId, LinkedHashMap<String, String> map, AsyncCallStart asyncCallStart) throws Exception {
 		String response = asyncCallStart.sendPost("http://localhost:8082/api/mpi-report/operation/poll/" + reportId, RequestMethod.GET, map, null);
 		System.out.println(response);

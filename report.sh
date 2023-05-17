@@ -1,0 +1,1 @@
+java -agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=21044 -jar -Dspring.config.location=/home/me/GIT/ferzl/ferzlConfigs/mpi_reporter.properties -Dlog.fileBaseDir=/home/me/tmp/logs/mpi-report -Dlog.console=true /home/me/GIT/ferzl/mpi-reporter/target/mpi-reporter-0.0.1.jar --server.port=8082
