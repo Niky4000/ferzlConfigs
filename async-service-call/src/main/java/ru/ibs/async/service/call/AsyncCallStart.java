@@ -58,9 +58,9 @@ public class AsyncCallStart {
 //		sendQueryAndGetResult(asyncCallStart, map, "{\n" + "    \"type\": \"REPORT_FOMS_INSURED_PERSONS_AND_ATTACHES\",\n" + "    \"data\": \"{\\\"user\\\":\\\"user\\\",\\\"dt\\\":\\\"2023-03-01\\\",\\\"source\\\":\\\"t-foms\\\",\\\"accountId\\\":\\\"accountId\\\"}\",\n" + "    \"source\": \"t-foms\"\n" + "}");
 //		sendQueryAndGetResult(asyncCallStart, map, "{\n" + "    \"type\": \"REPORT_FOMS_INSURED_PERSONS_AND_ATTACHES_AND_SMO\",\n" + "    \"data\": \"{\\\"user\\\":\\\"user\\\",\\\"dt\\\":\\\"2023-03-01\\\",\\\"source\\\":\\\"t-foms\\\",\\\"accountId\\\":\\\"accountId\\\"}\",\n" + "    \"source\": \"t-foms\"\n" + "}");
 //		createExampleReport(asyncCallStart, map);
-		createAttachedAndInsuredPersonsReport("http://localhost:8082/api/mpi-report/operation/start", asyncCallStart, map);
+//		createAttachedAndInsuredPersonsReport("http://localhost:8082/api/mpi-report/operation/start", asyncCallStart, map);
 //		createAttachedAndInsuredPersonsReport("https://erzl-dev.element-lab.ru/api/reporter/operation/start", asyncCallStart, map);
-//		createAttachedAndInsuredPersonsAndSmoReport("http://localhost:8082/api/mpi-report/operation/start", asyncCallStart, map);
+		createAttachedAndInsuredPersonsAndSmoReport("http://localhost:8082/api/mpi-report/operation/start", asyncCallStart, map);
 //		createStatisticsReport(asyncCallStart, map);
 //		getStatistics(asyncCallStart, token, new SimpleDateFormat("yyyy-MM-dd").parse("2023-02-01"));
 //		getStatisticsInALoop2(asyncCallStart, token);
