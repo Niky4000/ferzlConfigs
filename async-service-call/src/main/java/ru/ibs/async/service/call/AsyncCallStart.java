@@ -14,6 +14,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.Socket;
 import java.net.URL;
@@ -46,9 +47,9 @@ public class AsyncCallStart {
 	public static void main(String[] args) throws Exception {
 		AsyncCallStart asyncCallStart = new AsyncCallStart();
 		String token = sendAuthRequest(asyncCallStart);
-		LinkedHashMap<String, String> map = getAuthMap(token);
+//		LinkedHashMap<String, String> map = getAuthMap(token);
 //		sendUsingSockets();
-//		LinkedHashMap<String, String> map = getAuthMap("developer", "GIcauW7ObTl198v4Xr9Q", "Basic");
+		LinkedHashMap<String, String> map = getAuthMap("developer", "GIcauW7ObTl198v4Xr9Q", "Basic", token);
 //		sendQueryAndGetResult(asyncCallStart, map, "{\n" + "    \"type\": \"GET_CHANGES_EVENT\",\n" + "    \"data\": \"{\\\"dtFrom\\\":\\\"2023-01-10\\\",\\\"dtTo\\\":\\\"2023-01-12\\\",\\\"terr\\\":\\\"34000\\\",\\\"smo\\\":\\\"44003\\\"}\",\n" + "    \"source\": \"t-foms\"\n" + "}");
 //		sendQueryAndGetResult(asyncCallStart, map, "{\n" + "    \"type\": \"GET_VIEW_DATA_SOC_STATUS\",\n" + "    \"data\": \"{\\\"dt\\\":\\\"2022-07-01\\\",\\\"terr\\\":\\\"01000\\\",\\\"smo\\\":\\\"22000\\\",\\\"quarter\\\":\\\"true\\\"}\",\n" + "    \"source\": \"t-foms\"\n" + "}");
 //		sendQueryAndGetResult(asyncCallStart, map, "{\n" + "    \"type\": \"GET_VIEW_DATA_SOC_STATUS\",\n" + "    \"data\": \"{\\\"dt\\\":\\\"2022-07-01\\\",\\\"terr\\\":\\\"01000\\\",\\\"quarter\\\":\\\"true\\\"}\",\n" + "    \"source\": \"t-foms\"\n" + "}");
@@ -57,13 +58,24 @@ public class AsyncCallStart {
 //		sendQueryAndGetResult(asyncCallStart, map, "{\n" + "    \"type\": \"GET_VIEW_DATA_SOC_STATUS\",\n" + "    \"data\": \"{\\\"dt\\\":\\\"2023-03-24\\\",\\\"terr\\\":\\\"01000\\\",\\\"quarter\\\":\\\"false\\\"}\",\n" + "    \"source\": \"t-foms\"\n" + "}");
 //		sendQueryAndGetResult(asyncCallStart, map, "{\n" + "    \"type\": \"REPORT_FOMS_INSURED_PERSONS_AND_ATTACHES\",\n" + "    \"data\": \"{\\\"user\\\":\\\"user\\\",\\\"dt\\\":\\\"2023-03-01\\\",\\\"source\\\":\\\"t-foms\\\",\\\"accountId\\\":\\\"accountId\\\"}\",\n" + "    \"source\": \"t-foms\"\n" + "}");
 //		sendQueryAndGetResult(asyncCallStart, map, "{\n" + "    \"type\": \"REPORT_FOMS_INSURED_PERSONS_AND_ATTACHES_AND_SMO\",\n" + "    \"data\": \"{\\\"user\\\":\\\"user\\\",\\\"dt\\\":\\\"2023-03-01\\\",\\\"source\\\":\\\"t-foms\\\",\\\"accountId\\\":\\\"accountId\\\"}\",\n" + "    \"source\": \"t-foms\"\n" + "}");
+//		sendQueryAndGetResult(asyncCallStart, map, "{\n" + "    \"type\": \"REPORT_CITIZENSHIP\",\n" + "    \"data\": \"{\\\"dt\\\":\\\"2023-08-01\\\",\\\"okatoList\\\":\\\"\\\"}\",\n" + "    \"source\": \"t-foms\"\n" + "}");
+//		sendQueryAndGetResult(asyncCallStart, map, "{\n" + "    \"type\": \"REPORT_CITIZENSHIP\",\n" + "    \"data\": \"{\\\"dt\\\":\\\"2023-08-01\\\",\\\"okatoList\\\":\\\"24000,29000,34000,67000\\\"}\",\n" + "    \"source\": \"t-foms\"\n" + "}");
+//		sendQueryAndGetResult(asyncCallStart, map, "{\n" + "    \"type\": \"REPORT_CITIZENSHIP\",\n" + "    \"data\": \"{\\\"dt\\\":\\\"2023-08-01\\\",\\\"okatoList\\\":[\\\"24000\\\",\\\"29000\\\",\\\"34000\\\",\\\"67000\\\"]}\",\n" + "    \"source\": \"t-foms\"\n" + "}");
+//		sendQueryAndGetResult(asyncCallStart, map, "{\n" + "    \"type\": \"REPORT_CITIZENSHIP\",\n" + "    \"data\": \"{\\\"dt\\\":\\\"2023-09-28\\\",\\\"okatoList\\\":\\\"\\\",\\\"okatoNameList\\\":\\\"\\\"}\",\n" + "    \"source\": \"t-foms\"\n" + "}");
+//		sendCitizenshipQuery(asyncCallStart);
 //		createExampleReport(asyncCallStart, map);
-//		createAttachedAndInsuredPersonsReport("http://localhost:8082/api/mpi-report/operation/start", asyncCallStart, map);
+//		createAttachedAndInsuredPersonsReport("http://localhost:8082/api/mpi-report/operation/start", asyncCallStart, map); // 1
 //		createAttachedAndInsuredPersonsReport("https://erzl-dev.element-lab.ru/api/reporter/operation/start", asyncCallStart, map);
-//		createAttachedAndInsuredPersonsAndSmoReport("http://localhost:8082/api/mpi-report/operation/start", asyncCallStart, map);
-//		createMpiEventsStatisticsReport("http://localhost:8082/api/mpi-report/operation/start", asyncCallStart, map);
-		createStatisticsReport(asyncCallStart, map);
-//		createInsuredByAgeReport(asyncCallStart, map);
+//		createInsuredByAgeReport(asyncCallStart, map); // 2
+//		createAttachedAndInsuredPersonsAndSmoReport("http://localhost:8082/api/mpi-report/operation/start", asyncCallStart, map); // 3
+//		createCitizenshipReport("http://localhost:8082/api/mpi-report/operation/start", asyncCallStart, map); // 4
+//		createMpiEventsStatisticsReport("http://localhost:8082/api/mpi-report/operation/start", asyncCallStart, map); // 5
+//		createStatisticsReport(asyncCallStart, map); // 6
+//		createIncidentReport(asyncCallStart, map); // 7
+		String incident = asyncCallStart.sendPost("https://erzl-dev.element-lab.ru/api/incident/statistic/udm?dtFrom=2023-01-01&dtTo=2023-10-29", RequestMethod.GET, map, null);
+		System.out.println(incident);
+//		getOrganizationNameList(map, asyncCallStart);
+//		getUserNameList(map, asyncCallStart);
 //		String organizations = asyncCallStart.sendPost("https://erzl-dev.element-lab.ru/api/auth/organizations?types=&pageNumber=1&pageSize=25&searchText=%D0%A2%D0%A4%D0%9E%D0%9C%D0%A1", RequestMethod.GET, map, null);
 //		String organizations2 = asyncCallStart.sendPost("https://erzl-dev.element-lab.ru/api/auth/organizations/638073db-e8e3-4b11-bda2-cb84dfe89f70", RequestMethod.GET, map, null);
 //		getStatistics(asyncCallStart, token, new SimpleDateFormat("yyyy-MM-dd").parse("2023-02-01"));
@@ -351,7 +363,12 @@ public class AsyncCallStart {
 
 	private static void createMpiEventsStatisticsReport(String url, AsyncCallStart asyncCallStart, LinkedHashMap<String, String> map) throws Exception {
 //		Это тестовый пример!
-		ReportCreateDto reportCreateDto = new ReportCreateDto(OperationType.REPORT_CHANGES_EVENT_STAT, "t-foms", "xlsx", Arrays.asList(new ReportParameter("dtFrom", "2023-06-01"), new ReportParameter("dtTo", "2023-06-30"), new ReportParameter("eventList", "EVENT1,EVENT2,EVENT3,EVENT4,EVENT5,EVENT6,EVENT7,EVENT8,EVENT9,EVENT10,EVENT11,EVENT12,EVENT13,EVENT14,EVENT15,EVENT16,EVENT17,EVENT18,EVENT19,EVENT20"), new ReportParameter("source", "t-foms"), new ReportParameter("accountId", "-1")));
+//		ReportCreateDto reportCreateDto = new ReportCreateDto(OperationType.REPORT_CHANGES_EVENT_STAT, "t-foms", "xlsx", Arrays.asList(new ReportParameter("dtFrom", "2023-06-01"), new ReportParameter("dtTo", "2023-06-30"), new ReportParameter("groupBySource", "false"), new ReportParameter("eventList", "EVENT1,EVENT2,EVENT3,EVENT4,EVENT5,EVENT6,EVENT7,EVENT8,EVENT9,EVENT10,EVENT11,EVENT12,EVENT13,EVENT14,EVENT15,EVENT16,EVENT17,EVENT18,EVENT19,EVENT20"), new ReportParameter("source", "t-foms"), new ReportParameter("accountId", "-1")));
+//		ReportCreateDto reportCreateDto = new ReportCreateDto(OperationType.REPORT_CHANGES_EVENT_STAT, "t-foms", "xlsx", Arrays.asList(new ReportParameter("dtFrom", "2023-06-01"), new ReportParameter("dtTo", "2023-06-30"), new ReportParameter("groupBySource", "false"), new ReportParameter("source", "t-foms"), new ReportParameter("accountId", "-1")));
+//		ReportCreateDto reportCreateDto = new ReportCreateDto(OperationType.REPORT_CHANGES_EVENT_STAT, "t-foms", "xlsx", Arrays.asList(new ReportParameter("dt", "2023-06-01"), new ReportParameter("dtFrom", "2023-06-01"), new ReportParameter("dtTo", "2023-06-30"), new ReportParameter("groupBySource", "true"), new ReportParameter("source", "t-foms"), new ReportParameter("accountId", "-1")));
+//		ReportCreateDto reportCreateDto = new ReportCreateDto(OperationType.REPORT_CHANGES_EVENT_STAT, "t-foms", "xlsx", Arrays.asList(new ReportParameter("dtFrom", "2023-06-01"), new ReportParameter("dtTo", "2023-06-30"), new ReportParameter("groupBySource", "true"), new ReportParameter("source", "t-foms"), new ReportParameter("accountId", "-1")));
+//		ReportCreateDto reportCreateDto = new ReportCreateDto(OperationType.REPORT_CHANGES_EVENT_STAT, "t-foms", "xlsx", Arrays.asList(new ReportParameter("dtFrom", "2023-06-01"), new ReportParameter("dtTo", "2023-06-30"), new ReportParameter("groupBySource", "false"), new ReportParameter("source", "t-foms"), new ReportParameter("accountId", "-1")));
+		ReportCreateDto reportCreateDto = new ReportCreateDto(OperationType.REPORT_CHANGES_EVENT_STAT, "t-foms", "xlsx", Arrays.asList(new ReportParameter("dtFrom", "2023-10-01"), new ReportParameter("dtTo", "2023-10-02"), new ReportParameter("eventList", "НЗР"), new ReportParameter("eventNameList", "Начальная загрузка реестра"), new ReportParameter("groupBySource", "false"), new ReportParameter("source", "t-foms"), new ReportParameter("accountId", "-1")));
 		String post = reportCreateDto.toPost();
 		System.out.println(post);
 		String startResult = asyncCallStart.sendPost(url, RequestMethod.POST, map, post);
@@ -359,18 +376,39 @@ public class AsyncCallStart {
 //		Это тестовый пример!
 	}
 
+	private static void createCitizenshipReport(String url, AsyncCallStart asyncCallStart, LinkedHashMap<String, String> map) throws Exception {
+		ReportCreateDto reportCreateDto = new ReportCreateDto(OperationType.REPORT_CITIZENSHIP, "t-foms", "xlsx", Arrays.asList(new ReportParameter("dt", "2023-09-19"), new ReportParameter("okatoList", ""), new ReportParameter("okatoNameList", ""), new ReportParameter("accountId", "-1")));
+//		ReportCreateDto reportCreateDto = new ReportCreateDto(OperationType.REPORT_CITIZENSHIP, "t-foms", "xlsx", Arrays.asList(new ReportParameter("dt", "2023-09-19"), new ReportParameter("okatoList", "60000,61000,63000,64000,65000,66000,68000"), new ReportParameter("okatoNameList", "Ростовская область,Рязанская область,Саратовская область,Сахалинская область,Свердловская область,Смоленская область,Тамбовская область"), new ReportParameter("accountId", "-1")));
+//		ReportCreateDto reportCreateDto = new ReportCreateDto(OperationType.REPORT_CITIZENSHIP, "t-foms", "xlsx", Arrays.asList(new ReportParameter("dt", "2023-08-01"), new ReportParameter("okatoList", "24000,29000,34000,67000"), new ReportParameter("okatoNameList", ""), new ReportParameter("source", "t-foms"), new ReportParameter("accountId", "-1")));
+//		ReportCreateDto reportCreateDto = new ReportCreateDto(OperationType.REPORT_CITIZENSHIP, "t-foms", "xlsx", Arrays.asList(new ReportParameter("dt", "2023-08-01"), new ReportParameter("okatoList", "24000,29000"), new ReportParameter("okatoNameList", ""), new ReportParameter("source", "t-foms"), new ReportParameter("accountId", "-1")));
+		String post = reportCreateDto.toPost();
+		System.out.println(post);
+		String startResult = asyncCallStart.sendPost(url, RequestMethod.POST, map, post);
+		System.out.println(startResult);
+	}
+
 	private static void createStatisticsReport(AsyncCallStart asyncCallStart, LinkedHashMap<String, String> map) throws Exception {
 //		Это тестовый пример!
-//		ReportCreateDto reportCreateDto = new ReportCreateDto(OperationType.TFOMS_CALL_METHOD_STATISTICS_REPORT, "t-foms", "xls", Arrays.asList(new ReportParameter("dt", "2023-02-01"), new ReportParameter("source", "t-foms"), new ReportParameter("accountId", "-1")));
-//		ReportCreateDto reportCreateDto = new ReportCreateDto(OperationType.TFOMS_CALL_METHOD_STATISTICS_REPORT, "t-foms", "xls", Arrays.asList(new ReportParameter("dt", "2023-02-01"), new ReportParameter("docsTypes", "FIND_PERSONS_BY_CRITERIA_REQUEST,GET_ALL_CURRENT_ENP_POLL_REQUEST,GET_INSURANCE_STATUS_CHANGES_POLL_REQUEST,GET_VIEW_DATA_INSURANCE_POLL_REQUEST"), new ReportParameter("source", "t-foms"), new ReportParameter("accountId", "-1")));
-//		ReportCreateDto reportCreateDto = new ReportCreateDto(OperationType.TFOMS_CALL_METHOD_STATISTICS_REPORT, "t-foms", "xls", Arrays.asList(new ReportParameter("dt", "2023-06-20"), new ReportParameter("organizationIds", "6cf1b649-13cd-4858-9438-8bf2332f9030,638073db-e8e3-4b11-bda2-cb84dfe89f70"), new ReportParameter("source", "t-foms"), new ReportParameter("accountId", "-1")));
-//		ReportCreateDto reportCreateDto = new ReportCreateDto(OperationType.TFOMS_CALL_METHOD_STATISTICS_REPORT, "t-foms", "xls", Arrays.asList(new ReportParameter("dt", "2023-06-20"), new ReportParameter("organizationIds", "6cf1b649-13cd-4858-9438-8bf2332f9030"), new ReportParameter("source", "t-foms"), new ReportParameter("accountId", "-1")));
-//		ReportCreateDto reportCreateDto = new ReportCreateDto(OperationType.TFOMS_CALL_METHOD_STATISTICS_REPORT, "t-foms", "xls", Arrays.asList(new ReportParameter("dt", "2023-06-20"), new ReportParameter("organizationIds", "638073db-e8e3-4b11-bda2-cb84dfe89f70"), new ReportParameter("source", "t-foms"), new ReportParameter("accountId", "-1")));
-		ReportCreateDto reportCreateDto = new ReportCreateDto(OperationType.TFOMS_CALL_METHOD_STATISTICS_REPORT, "t-foms", "xls", Arrays.asList(new ReportParameter("dt", "2023-06-20"), new ReportParameter("docsTypes", "PERSON_DATA_REQUEST,SUBMIT_APPLICATION_REQUEST"), new ReportParameter("organizationIds", "6cf1b649-13cd-4858-9438-8bf2332f9030,638073db-e8e3-4b11-bda2-cb84dfe89f70"), new ReportParameter("source", "t-foms"), new ReportParameter("accountId", "-1")));
-//		ReportCreateDto reportCreateDto = new ReportCreateDto(OperationType.TFOMS_CALL_METHOD_STATISTICS_REPORT, "t-foms", "xls", Arrays.asList(new ReportParameter("dt", "2023-06-20"), new ReportParameter("docsTypes", "PERSON_DATA_HISTORY_REQUEST"), new ReportParameter("organizationIds", "6cf1b649-13cd-4858-9438-8bf2332f9030,638073db-e8e3-4b11-bda2-cb84dfe89f70"), new ReportParameter("source", "t-foms"), new ReportParameter("accountId", "-1")));
-//		ReportCreateDto reportCreateDto = new ReportCreateDto(OperationType.TFOMS_CALL_METHOD_STATISTICS_REPORT, "t-foms", "xls", Arrays.asList(new ReportParameter("dt", "2023-06-20"), new ReportParameter("source", "t-foms"), new ReportParameter("accountId", "-1")));
-//		ReportCreateDto reportCreateDto = new ReportCreateDto(OperationType.TFOMS_CALL_METHOD_STATISTICS_REPORT, "t-foms", "xls", Arrays.asList(new ReportParameter("dt", "2023-06-20"), new ReportParameter("docsTypes", ""), new ReportParameter("organizationIds", ""), new ReportParameter("source", "t-foms"), new ReportParameter("accountId", "-1")));
-//		ReportCreateDto reportCreateDto = new ReportCreateDto(OperationType.TFOMS_CALL_METHOD_STATISTICS_REPORT, "t-foms", "xls", Arrays.asList(new ReportParameter("dt", "2023-07-12"), new ReportParameter("source", "t-foms"), new ReportParameter("accountId", "-1")));
+		ReportCreateDto reportCreateDto = new ReportCreateDto(OperationType.TFOMS_CALL_METHOD_STATISTICS_REPORT, "t-foms", "xlsx", Arrays.asList(new ReportParameter("dt", "2023-02-01"), new ReportParameter("source", "t-foms"), new ReportParameter("accountId", "-1")));
+//		ReportCreateDto reportCreateDto = new ReportCreateDto(OperationType.TFOMS_CALL_METHOD_STATISTICS_REPORT, "t-foms", "xlsx", Arrays.asList(new ReportParameter("dt", "2023-02-01"), new ReportParameter("docsTypes", "FIND_PERSONS_BY_CRITERIA_REQUEST,GET_ALL_CURRENT_ENP_POLL_REQUEST,GET_INSURANCE_STATUS_CHANGES_POLL_REQUEST,GET_VIEW_DATA_INSURANCE_POLL_REQUEST"), new ReportParameter("source", "t-foms"), new ReportParameter("accountId", "-1")));
+//		ReportCreateDto reportCreateDto = new ReportCreateDto(OperationType.TFOMS_CALL_METHOD_STATISTICS_REPORT, "t-foms", "xlsx", Arrays.asList(new ReportParameter("dt", "2023-06-20"), new ReportParameter("organizationIds", "6cf1b649-13cd-4858-9438-8bf2332f9030,638073db-e8e3-4b11-bda2-cb84dfe89f70"), new ReportParameter("source", "t-foms"), new ReportParameter("accountId", "-1")));
+//		ReportCreateDto reportCreateDto = new ReportCreateDto(OperationType.TFOMS_CALL_METHOD_STATISTICS_REPORT, "t-foms", "xlsx", Arrays.asList(new ReportParameter("dt", "2023-06-20"), new ReportParameter("organizationIds", "6cf1b649-13cd-4858-9438-8bf2332f9030"), new ReportParameter("source", "t-foms"), new ReportParameter("accountId", "-1")));
+//		ReportCreateDto reportCreateDto = new ReportCreateDto(OperationType.TFOMS_CALL_METHOD_STATISTICS_REPORT, "t-foms", "xlsx", Arrays.asList(new ReportParameter("dt", "2023-06-20"), new ReportParameter("organizationIds", "638073db-e8e3-4b11-bda2-cb84dfe89f70"), new ReportParameter("source", "t-foms"), new ReportParameter("accountId", "-1")));
+//		ReportCreateDto reportCreateDto = new ReportCreateDto(OperationType.TFOMS_CALL_METHOD_STATISTICS_REPORT, "t-foms", "xlsx", Arrays.asList(new ReportParameter("dt", "2023-06-20"), new ReportParameter("docsTypes", "PERSON_DATA_REQUEST,SUBMIT_APPLICATION_REQUEST"), new ReportParameter("organizationIds", "6cf1b649-13cd-4858-9438-8bf2332f9030,638073db-e8e3-4b11-bda2-cb84dfe89f70"), new ReportParameter("source", "t-foms"), new ReportParameter("accountId", "-1")));
+//		ReportCreateDto reportCreateDto = new ReportCreateDto(OperationType.TFOMS_CALL_METHOD_STATISTICS_REPORT, "t-foms", "xlsx", Arrays.asList(new ReportParameter("dt", "2023-06-20"), new ReportParameter("docsTypes", "PERSON_DATA_HISTORY_REQUEST"), new ReportParameter("organizationIds", "6cf1b649-13cd-4858-9438-8bf2332f9030,638073db-e8e3-4b11-bda2-cb84dfe89f70"), new ReportParameter("source", "t-foms"), new ReportParameter("accountId", "-1")));
+//		ReportCreateDto reportCreateDto = new ReportCreateDto(OperationType.TFOMS_CALL_METHOD_STATISTICS_REPORT, "t-foms", "xlsx", Arrays.asList(new ReportParameter("dt", "2023-06-20"), new ReportParameter("source", "t-foms"), new ReportParameter("accountId", "-1")));
+//		ReportCreateDto reportCreateDto = new ReportCreateDto(OperationType.TFOMS_CALL_METHOD_STATISTICS_REPORT, "t-foms", "xlsx", Arrays.asList(new ReportParameter("dt", "2023-06-20"), new ReportParameter("docsTypes", ""), new ReportParameter("organizationIds", ""), new ReportParameter("source", "t-foms"), new ReportParameter("accountId", "-1")));
+//		ReportCreateDto reportCreateDto = new ReportCreateDto(OperationType.TFOMS_CALL_METHOD_STATISTICS_REPORT, "t-foms", "xlsx", Arrays.asList(new ReportParameter("dt", "2023-07-12"), new ReportParameter("source", "t-foms"), new ReportParameter("accountId", "-1")));
+		String post = reportCreateDto.toPost();
+		System.out.println(post);
+		String startResult = asyncCallStart.sendPost("http://localhost:8082/api/mpi-report/operation/start", RequestMethod.POST, map, post);
+		System.out.println(startResult);
+//		Это тестовый пример!
+	}
+
+	private static void createIncidentReport(AsyncCallStart asyncCallStart, LinkedHashMap<String, String> map) throws Exception {
+//		Это тестовый пример!
+		ReportCreateDto reportCreateDto = new ReportCreateDto(OperationType.INCORRECT_DOCUMENTS, "t-foms", "xlsx", Arrays.asList(new ReportParameter("dtFrom", "2023-01-01"), new ReportParameter("dtTo", "2023-10-31"), new ReportParameter("source", "t-foms"), new ReportParameter("accountId", "-1")));
 		String post = reportCreateDto.toPost();
 		System.out.println(post);
 		String startResult = asyncCallStart.sendPost("http://localhost:8082/api/mpi-report/operation/start", RequestMethod.POST, map, post);
@@ -381,12 +419,24 @@ public class AsyncCallStart {
 	private static void createInsuredByAgeReport(AsyncCallStart asyncCallStart, LinkedHashMap<String, String> map) throws Exception {
 //		Это тестовый пример!
 //		ReportCreateDto reportCreateDto = new ReportCreateDto(OperationType.REPORT_FOMS_INSURED_PERSONS_BY_AGE, "t-foms", "xls", Arrays.asList(new ReportParameter("dt", "2023-01-01"), new ReportParameter("accountId", "-1")));
-		ReportCreateDto reportCreateDto = new ReportCreateDto(OperationType.REPORT_FOMS_INSURED_PERSONS_BY_AGE, "t-foms", "xlsx", Arrays.asList(new ReportParameter("dt", "2023-01-01"), new ReportParameter("okatoList", "24000,29000,34000,67000"), new ReportParameter("okatoNameList", "Moskow,Iceberg,Jellyfish,Dolphin,Fire"), new ReportParameter("accountId", "-1")));
+//		ReportCreateDto reportCreateDto = new ReportCreateDto(OperationType.REPORT_FOMS_INSURED_PERSONS_BY_AGE, "t-foms", "xlsx", Arrays.asList(new ReportParameter("dt", "2023-01-01"), new ReportParameter("okatoList", "24000,29000,34000,67000"), new ReportParameter("okatoNameList", "Moskow,Iceberg,Jellyfish,Dolphin,Fire"), new ReportParameter("accountId", "-1")));
+//		ReportCreateDto reportCreateDto = new ReportCreateDto(OperationType.REPORT_FOMS_INSURED_PERSONS_BY_AGE, "t-foms", "xlsx", Arrays.asList(new ReportParameter("dt", "2023-08-09"), new ReportParameter("okatoList", ""), new ReportParameter("okatoNameList", ""), new ReportParameter("accountId", "-1")));
+		ReportCreateDto reportCreateDto = new ReportCreateDto(OperationType.REPORT_FOMS_INSURED_PERSONS_BY_AGE, "t-foms", "xlsx", Arrays.asList(new ReportParameter("dt", "2023-08-01"), new ReportParameter("okatoList", ""), new ReportParameter("okatoNameList", ""), new ReportParameter("accountId", "-1")));
 		String post = reportCreateDto.toPost();
 		System.out.println(post);
 		String startResult = asyncCallStart.sendPost("http://localhost:8082/api/mpi-report/operation/start", RequestMethod.POST, map, post);
 		System.out.println(startResult);
 //		Это тестовый пример!
+	}
+
+	private static void getOrganizationNameList(LinkedHashMap<String, String> map, AsyncCallStart asyncCallStart) throws Exception {
+		String response = asyncCallStart.sendPost("http://localhost:8082/api/mpi-report/operation/getOrganizationNameList", RequestMethod.POST, map, "{\"organizationName\":\"" + "ТЕ" + "\"}");
+		System.out.println(response);
+	}
+
+	private static void getUserNameList(LinkedHashMap<String, String> map, AsyncCallStart asyncCallStart) throws Exception {
+		String response = asyncCallStart.sendPost("http://localhost:8082/api/mpi-report/operation/getUserNameList", RequestMethod.POST, map, "{\"userName\":\"" + "ТЕ" + "\"}");
+		System.out.println(response);
 	}
 
 	private static void getReportStatus(String reportId, LinkedHashMap<String, String> map, AsyncCallStart asyncCallStart) throws Exception {
@@ -401,6 +451,28 @@ public class AsyncCallStart {
 
 	private static String getValue(String startResult4, String indexStr1, String indexStr2) {
 		return startResult4.substring(startResult4.indexOf(indexStr1) + indexStr1.length(), startResult4.indexOf(indexStr2));
+	}
+
+	private static void sendCitizenshipQuery(AsyncCallStart asyncCallStart, String token) throws Exception {
+		LinkedHashMap<String, String> map = getAuthMap("developer", "GIcauW7ObTl198v4Xr9Q", "Basic", token);
+		String startResult4 = asyncCallStart.sendPost("https://erzl-dev.element-lab.ru/api/mpi/nsi/ref-oksm/name", RequestMethod.POST, map, "{\n" + "\"a2\": \"KGZ\"" + "\n}");
+		System.out.println(startResult4);
+//		String opToken = getValue(startResult4, "\"opToken\":\"", "\",\"errors\"");
+//		String status = NEW_VALUE;
+//		String pollResult = "";
+//		while (status.equals(NEW_VALUE) || status.equals(PROCESSING)) {
+//			Thread.sleep(2000);
+//			pollResult = asyncCallStart.sendPost("http://localhost:8080/api/async/operation/poll", RequestMethod.POST, map, "{\n"
+//					+ "    \"opToken\": \"" + opToken + "\""
+//					+ "}");
+//			status = getValue(pollResult, ",\"status\":\"", "\",\"content\"");
+//			System.out.println(pollResult);
+//		}
+//		File file = new File("/home/me/tmp/pollResult");
+//		if (file.exists()) {
+//			file.delete();
+//		}
+//		Files.write(file.toPath(), pollResult.getBytes(), StandardOpenOption.CREATE_NEW);
 	}
 
 	private static final String USER_AGENT = "Apache-HttpClient/4.1.1 (java 1.5)";
@@ -425,8 +497,12 @@ public class AsyncCallStart {
 		headers.entrySet().forEach(entry -> con.setRequestProperty(entry.getKey(), entry.getValue()));
 		con.setDoOutput(true);
 		if (requestMethod.equals(RequestMethod.POST)) {
-			try (DataOutputStream wr = new DataOutputStream(con.getOutputStream())) {
-				wr.writeBytes(urlParameters);
+//			try (DataOutputStream wr = new DataOutputStream(con.getOutputStream())) {
+//				wr.writeBytes(urlParameters);
+//				wr.flush();
+//			}
+			try (OutputStream wr = con.getOutputStream()) {
+				wr.write(urlParameters.getBytes());
 				wr.flush();
 			}
 		}
@@ -464,13 +540,14 @@ public class AsyncCallStart {
 		return response;
 	}
 
-	private static LinkedHashMap<String, String> getAuthMap(String user, String password, String authType) {
+	private static LinkedHashMap<String, String> getAuthMap(String user, String password, String authType, String token) {
 		String auth = user + ":" + password;
 		byte[] encodedAuth = Base64.getEncoder().encode(auth.getBytes(StandardCharsets.UTF_8));
 		LinkedHashMap<String, String> map = new LinkedHashMap<>();
 		map.put("Authorization", authType + " " + new String(encodedAuth));
 		map.put("Content-Type", "application/json");
 		map.put("User-Agent", USER_AGENT);
+		map.put("X-Auth-Token", token);
 		return map;
 	}
 }
