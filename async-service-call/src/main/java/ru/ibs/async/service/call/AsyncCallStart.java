@@ -71,9 +71,9 @@ public class AsyncCallStart {
 //		createCitizenshipReport("http://localhost:8082/api/mpi-report/operation/start", asyncCallStart, map); // 4
 //		createMpiEventsStatisticsReport("http://localhost:8082/api/mpi-report/operation/start", asyncCallStart, map); // 5
 //		createStatisticsReport(asyncCallStart, map); // 6
-//		createIncidentReport(asyncCallStart, map); // 7
-		String incident = asyncCallStart.sendPost("https://erzl-dev.element-lab.ru/api/incident/statistic/udm?dtFrom=2023-01-01&dtTo=2023-10-29", RequestMethod.GET, map, null);
-		System.out.println(incident);
+		createIncidentReport(asyncCallStart, map); // 7
+//		String incident = asyncCallStart.sendPost("https://erzl-dev.element-lab.ru/api/incident/statistic/udm?dtFrom=2023-01-01&dtTo=2023-10-29", RequestMethod.GET, map, null);
+//		System.out.println(incident);
 //		getOrganizationNameList(map, asyncCallStart);
 //		getUserNameList(map, asyncCallStart);
 //		String organizations = asyncCallStart.sendPost("https://erzl-dev.element-lab.ru/api/auth/organizations?types=&pageNumber=1&pageSize=25&searchText=%D0%A2%D0%A4%D0%9E%D0%9C%D0%A1", RequestMethod.GET, map, null);
