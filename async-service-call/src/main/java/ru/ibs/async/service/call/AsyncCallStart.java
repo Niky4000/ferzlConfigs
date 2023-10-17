@@ -47,9 +47,9 @@ public class AsyncCallStart {
 	public static void main(String[] args) throws Exception {
 		AsyncCallStart asyncCallStart = new AsyncCallStart();
 		String token = sendAuthRequest(asyncCallStart);
-//		LinkedHashMap<String, String> map = getAuthMap(token);
+		LinkedHashMap<String, String> map = getAuthMap(token);
 //		sendUsingSockets();
-		LinkedHashMap<String, String> map = getAuthMap("developer", "GIcauW7ObTl198v4Xr9Q", "Basic", token);
+//		LinkedHashMap<String, String> map = getAuthMap("developer", "GIcauW7ObTl198v4Xr9Q", "Basic", token);
 //		sendQueryAndGetResult(asyncCallStart, map, "{\n" + "    \"type\": \"GET_CHANGES_EVENT\",\n" + "    \"data\": \"{\\\"dtFrom\\\":\\\"2023-01-10\\\",\\\"dtTo\\\":\\\"2023-01-12\\\",\\\"terr\\\":\\\"34000\\\",\\\"smo\\\":\\\"44003\\\"}\",\n" + "    \"source\": \"t-foms\"\n" + "}");
 //		sendQueryAndGetResult(asyncCallStart, map, "{\n" + "    \"type\": \"GET_VIEW_DATA_SOC_STATUS\",\n" + "    \"data\": \"{\\\"dt\\\":\\\"2022-07-01\\\",\\\"terr\\\":\\\"01000\\\",\\\"smo\\\":\\\"22000\\\",\\\"quarter\\\":\\\"true\\\"}\",\n" + "    \"source\": \"t-foms\"\n" + "}");
 //		sendQueryAndGetResult(asyncCallStart, map, "{\n" + "    \"type\": \"GET_VIEW_DATA_SOC_STATUS\",\n" + "    \"data\": \"{\\\"dt\\\":\\\"2022-07-01\\\",\\\"terr\\\":\\\"01000\\\",\\\"quarter\\\":\\\"true\\\"}\",\n" + "    \"source\": \"t-foms\"\n" + "}");
@@ -71,7 +71,9 @@ public class AsyncCallStart {
 //		createCitizenshipReport("http://localhost:8082/api/mpi-report/operation/start", asyncCallStart, map); // 4
 //		createMpiEventsStatisticsReport("http://localhost:8082/api/mpi-report/operation/start", asyncCallStart, map); // 5
 //		createStatisticsReport(asyncCallStart, map); // 6
-		createIncidentReport(asyncCallStart, map); // 7
+//		createIncidentReport(asyncCallStart, map); // 7
+//		pollReportData(asyncCallStart, map, "3c8b3123-ea0c-4849-b461-2bdc002ae706");
+		getReportList(map, asyncCallStart);
 //		String incident = asyncCallStart.sendPost("https://erzl-dev.element-lab.ru/api/incident/statistic/udm?dtFrom=2023-01-01&dtTo=2023-10-29", RequestMethod.GET, map, null);
 //		System.out.println(incident);
 //		getOrganizationNameList(map, asyncCallStart);
@@ -408,12 +410,28 @@ public class AsyncCallStart {
 
 	private static void createIncidentReport(AsyncCallStart asyncCallStart, LinkedHashMap<String, String> map) throws Exception {
 //		Это тестовый пример!
-		ReportCreateDto reportCreateDto = new ReportCreateDto(OperationType.INCORRECT_DOCUMENTS, "t-foms", "xlsx", Arrays.asList(new ReportParameter("dtFrom", "2023-01-01"), new ReportParameter("dtTo", "2023-10-31"), new ReportParameter("source", "t-foms"), new ReportParameter("accountId", "-1")));
+//		ReportCreateDto reportCreateDto = new ReportCreateDto(OperationType.REPORT_INCORRECT_DUDLS_FROM_MASTER_SYSTEMS, "t-foms", "xlsx", Arrays.asList(new ReportParameter("dtFrom", "2023-01-01"), new ReportParameter("dtTo", "2023-10-31"), new ReportParameter("source", "t-foms"), new ReportParameter("accountId", "-1")));
+		ReportCreateDto reportCreateDto = new ReportCreateDto(OperationType.REPORT_INCORRECT_DUDLS_FROM_MASTER_SYSTEMS, "t-foms", "xlsx", Arrays.asList(new ReportParameter("source", "t-foms"), new ReportParameter("accountId", "-1")));
 		String post = reportCreateDto.toPost();
 		System.out.println(post);
 		String startResult = asyncCallStart.sendPost("http://localhost:8082/api/mpi-report/operation/start", RequestMethod.POST, map, post);
 		System.out.println(startResult);
 //		Это тестовый пример!
+	}
+
+	private static void pollReportData(AsyncCallStart asyncCallStart, LinkedHashMap<String, String> map, String opToken) throws Exception {
+		String pollResult = asyncCallStart.sendPost("http://localhost:8082/api/mpi-report/operation/poll/" + opToken, RequestMethod.GET, map, null);
+//		String pollResult = asyncCallStart.sendPost("https://erzl-test.element-lab.ru/api/mpi-report/operation/poll/" + opToken, RequestMethod.GET, map, null);
+		System.out.println(pollResult);
+	}
+
+	private static void getReportList(LinkedHashMap<String, String> map, AsyncCallStart asyncCallStart) throws Exception {
+		String response = asyncCallStart.sendPost("http://localhost:8082/api/mpi-report/operation/getReportList", RequestMethod.POST, map, "{\n"
+//				+ "\"id\": \"3c8b3123-ea0c-4849-b461-2bdc002ae706\"\n"
+				+ "\"createDateFrom\":\"" + "2023-10-15\","
+				+ "\"createDateTo\":\"" + "2023-10-17\""
+				+ "}");
+		System.out.println(response);
 	}
 
 	private static void createInsuredByAgeReport(AsyncCallStart asyncCallStart, LinkedHashMap<String, String> map) throws Exception {
