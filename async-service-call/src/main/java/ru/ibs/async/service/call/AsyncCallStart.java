@@ -71,10 +71,12 @@ public class AsyncCallStart {
 //		createCitizenshipReport("http://localhost:8082/api/mpi-report/operation/start", asyncCallStart, map); // 4
 //		createMpiEventsStatisticsReport("http://localhost:8082/api/mpi-report/operation/start", asyncCallStart, map); // 5
 //		createStatisticsReport(asyncCallStart, map); // 6
-//		createIncidentReport(asyncCallStart, map); // 7
+		createIncidentReport(asyncCallStart, map); // 7
 //		pollReportData(asyncCallStart, map, "3c8b3123-ea0c-4849-b461-2bdc002ae706");
-		getReportList(map, asyncCallStart);
+//		getReportList(map, asyncCallStart);
 //		String incident = asyncCallStart.sendPost("https://erzl-dev.element-lab.ru/api/incident/statistic/udm?dtFrom=2023-01-01&dtTo=2023-10-29", RequestMethod.GET, map, null);
+//		String incident = asyncCallStart.sendPost("https://erzl-dev.element-lab.ru/api/incident/statistic/udm?reason", RequestMethod.GET, map, null);
+//		String incident = asyncCallStart.sendPost("http://incident-service-test-svc.erzl-test.svc.cluster.local/api/incident/statistic/udm?dtFrom=2023-01-01&dtTo=2023-10-29", RequestMethod.GET, map, null);
 //		System.out.println(incident);
 //		getOrganizationNameList(map, asyncCallStart);
 //		getUserNameList(map, asyncCallStart);
@@ -370,7 +372,7 @@ public class AsyncCallStart {
 //		ReportCreateDto reportCreateDto = new ReportCreateDto(OperationType.REPORT_CHANGES_EVENT_STAT, "t-foms", "xlsx", Arrays.asList(new ReportParameter("dt", "2023-06-01"), new ReportParameter("dtFrom", "2023-06-01"), new ReportParameter("dtTo", "2023-06-30"), new ReportParameter("groupBySource", "true"), new ReportParameter("source", "t-foms"), new ReportParameter("accountId", "-1")));
 //		ReportCreateDto reportCreateDto = new ReportCreateDto(OperationType.REPORT_CHANGES_EVENT_STAT, "t-foms", "xlsx", Arrays.asList(new ReportParameter("dtFrom", "2023-06-01"), new ReportParameter("dtTo", "2023-06-30"), new ReportParameter("groupBySource", "true"), new ReportParameter("source", "t-foms"), new ReportParameter("accountId", "-1")));
 //		ReportCreateDto reportCreateDto = new ReportCreateDto(OperationType.REPORT_CHANGES_EVENT_STAT, "t-foms", "xlsx", Arrays.asList(new ReportParameter("dtFrom", "2023-06-01"), new ReportParameter("dtTo", "2023-06-30"), new ReportParameter("groupBySource", "false"), new ReportParameter("source", "t-foms"), new ReportParameter("accountId", "-1")));
-		ReportCreateDto reportCreateDto = new ReportCreateDto(OperationType.REPORT_CHANGES_EVENT_STAT, "t-foms", "xlsx", Arrays.asList(new ReportParameter("dtFrom", "2023-10-01"), new ReportParameter("dtTo", "2023-10-02"), new ReportParameter("eventList", "НЗР"), new ReportParameter("eventNameList", "Начальная загрузка реестра"), new ReportParameter("groupBySource", "false"), new ReportParameter("source", "t-foms"), new ReportParameter("accountId", "-1")));
+		ReportCreateDto reportCreateDto = new ReportCreateDto(OperationType.REPORT_CHANGES_EVENT_STAT, "t-foms", "xlsx", Arrays.asList(new ReportParameter("dtFrom", "2023-10-01"), new ReportParameter("dtTo", "2023-10-12"), new ReportParameter("eventList", "НЗР"), new ReportParameter("eventNameList", "Начальная загрузка реестра"), new ReportParameter("groupBySource", "false"), new ReportParameter("source", "t-foms"), new ReportParameter("accountId", "-1")));
 		String post = reportCreateDto.toPost();
 		System.out.println(post);
 		String startResult = asyncCallStart.sendPost(url, RequestMethod.POST, map, post);
@@ -410,8 +412,9 @@ public class AsyncCallStart {
 
 	private static void createIncidentReport(AsyncCallStart asyncCallStart, LinkedHashMap<String, String> map) throws Exception {
 //		Это тестовый пример!
-//		ReportCreateDto reportCreateDto = new ReportCreateDto(OperationType.REPORT_INCORRECT_DUDLS_FROM_MASTER_SYSTEMS, "t-foms", "xlsx", Arrays.asList(new ReportParameter("dtFrom", "2023-01-01"), new ReportParameter("dtTo", "2023-10-31"), new ReportParameter("source", "t-foms"), new ReportParameter("accountId", "-1")));
-		ReportCreateDto reportCreateDto = new ReportCreateDto(OperationType.REPORT_INCORRECT_DUDLS_FROM_MASTER_SYSTEMS, "t-foms", "xlsx", Arrays.asList(new ReportParameter("source", "t-foms"), new ReportParameter("accountId", "-1")));
+//		ReportCreateDto reportCreateDto = new ReportCreateDto(OperationType.REPORT_INCORRECT_DUDLS_FROM_MASTER_SYSTEMS, "t-foms", "xlsx", Arrays.asList(new ReportParameter("dtFrom", "2023-10-30"), new ReportParameter("dtTo", "2023-10-31"), new ReportParameter("source", "t-foms"), new ReportParameter("accountId", "-1")));
+//		ReportCreateDto reportCreateDto = new ReportCreateDto(OperationType.REPORT_INCORRECT_DUDLS_FROM_MASTER_SYSTEMS, "t-foms", "xlsx", Arrays.asList(new ReportParameter("source", "t-foms"), new ReportParameter("accountId", "-1")));
+		ReportCreateDto reportCreateDto = new ReportCreateDto(OperationType.REPORT_INCORRECT_DUDLS_FROM_MASTER_SYSTEMS, "t-foms", "xlsx", Arrays.asList(new ReportParameter("reason", ""), new ReportParameter("source", "t-foms"), new ReportParameter("accountId", "-1")));
 		String post = reportCreateDto.toPost();
 		System.out.println(post);
 		String startResult = asyncCallStart.sendPost("http://localhost:8082/api/mpi-report/operation/start", RequestMethod.POST, map, post);
@@ -427,7 +430,7 @@ public class AsyncCallStart {
 
 	private static void getReportList(LinkedHashMap<String, String> map, AsyncCallStart asyncCallStart) throws Exception {
 		String response = asyncCallStart.sendPost("http://localhost:8082/api/mpi-report/operation/getReportList", RequestMethod.POST, map, "{\n"
-//				+ "\"id\": \"3c8b3123-ea0c-4849-b461-2bdc002ae706\"\n"
+				//				+ "\"id\": \"3c8b3123-ea0c-4849-b461-2bdc002ae706\"\n"
 				+ "\"createDateFrom\":\"" + "2023-10-15\","
 				+ "\"createDateTo\":\"" + "2023-10-17\""
 				+ "}");
