@@ -71,7 +71,8 @@ public class AsyncCallStart {
 //		createCitizenshipReport("http://localhost:8082/api/mpi-report/operation/start", asyncCallStart, map); // 4
 //		createMpiEventsStatisticsReport("http://localhost:8082/api/mpi-report/operation/start", asyncCallStart, map); // 5
 //		createStatisticsReport(asyncCallStart, map); // 6
-		createIncidentReport(asyncCallStart, map); // 7
+//		createIncidentReport(asyncCallStart, map); // 7
+		createNewTerritoriesReport(asyncCallStart, map); // 8
 //		pollReportData(asyncCallStart, map, "3c8b3123-ea0c-4849-b461-2bdc002ae706");
 //		getReportList(map, asyncCallStart);
 //		String incident = asyncCallStart.sendPost("https://erzl-dev.element-lab.ru/api/incident/statistic/udm?dtFrom=2023-01-01&dtTo=2023-10-29", RequestMethod.GET, map, null);
@@ -420,6 +421,14 @@ public class AsyncCallStart {
 		String startResult = asyncCallStart.sendPost("http://localhost:8082/api/mpi-report/operation/start", RequestMethod.POST, map, post);
 		System.out.println(startResult);
 //		Это тестовый пример!
+	}
+
+	private static void createNewTerritoriesReport(AsyncCallStart asyncCallStart, LinkedHashMap<String, String> map) throws Exception {
+		ReportCreateDto reportCreateDto = new ReportCreateDto(OperationType.REPORT_FOMS_INSURED_PERSONS_IN_NEW_REGIONS, "t-foms", "xlsx", Arrays.asList(new ReportParameter("dt", "2023-02-01"), new ReportParameter("source", "t-foms"), new ReportParameter("accountId", "-1")));
+		String post = reportCreateDto.toPost();
+		System.out.println(post);
+		String startResult = asyncCallStart.sendPost("http://localhost:8082/api/mpi-report/operation/start", RequestMethod.POST, map, post);
+		System.out.println(startResult);
 	}
 
 	private static void pollReportData(AsyncCallStart asyncCallStart, LinkedHashMap<String, String> map, String opToken) throws Exception {
