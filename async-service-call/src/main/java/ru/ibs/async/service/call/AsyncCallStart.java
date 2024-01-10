@@ -75,9 +75,9 @@ public class AsyncCallStart {
 //		createIncidentReport(asyncCallStart, map); // 7
 //		createNewTerritoriesReport(asyncCallStart, map); // 8
 //        createGenderAndAgeReport(asyncCallStart, map); // 9
-        createMoAttachmentCountReport(asyncCallStart, map); // 10
+//        createMoAttachmentCountReport(asyncCallStart, map); // 10
 //		pollReportData(asyncCallStart, map, "3c8b3123-ea0c-4849-b461-2bdc002ae706");
-//		getReportList(map, asyncCallStart);
+		getReportList(map, asyncCallStart);
 //        String incident = asyncCallStart.sendPost("https://erzl-dev.element-lab.ru/api/incident/statistic/udm?dtFrom=2023-01-01&dtTo=2023-10-29", RequestMethod.GET, map, null);
 //		String incident = asyncCallStart.sendPost("https://erzl-dev.element-lab.ru/api/incident/statistic/udm?reason", RequestMethod.GET, map, null);
 //		String incident = asyncCallStart.sendPost("http://incident-service-test-svc.erzl-test.svc.cluster.local/api/incident/statistic/udm?dtFrom=2023-01-01&dtTo=2023-10-29", RequestMethod.GET, map, null);
@@ -471,8 +471,9 @@ public class AsyncCallStart {
     private static void getReportList(LinkedHashMap<String, String> map, AsyncCallStart asyncCallStart) throws Exception {
         String response = asyncCallStart.sendPost("http://localhost:8082/api/mpi-report/operation/getReportList", RequestMethod.POST, map, "{\n"
                 //				+ "\"id\": \"3c8b3123-ea0c-4849-b461-2bdc002ae706\"\n"
-                + "\"createDateFrom\":\"" + "2023-10-15\","
-                + "\"createDateTo\":\"" + "2023-10-17\""
+                + "\"createDateFrom\":\"" + "2024-01-01\","
+                + "\"createDateTo\":\"" + "2024-01-17\""
+//                + "\"createdByManager\":\"" + "true\""
                 + "}");
         System.out.println(response);
     }
