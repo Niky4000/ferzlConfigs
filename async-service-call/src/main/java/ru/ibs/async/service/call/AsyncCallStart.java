@@ -75,7 +75,7 @@ public class AsyncCallStart {
 //        createAttachedAndInsuredPersonsAndSmoReport("http://localhost:8082/api/mpi-report/operation/start", asyncCallStart, map); // 3
 //        createCitizenshipReport("http://localhost:8082/api/mpi-report/operation/start", asyncCallStart, map); // 4
 //		createMpiEventsStatisticsReport("http://localhost:8082/api/mpi-report/operation/start", asyncCallStart, map); // 5
-//        createStatisticsReport(asyncCallStart, map); // 6
+        createStatisticsReport(asyncCallStart, map); // 6
 //        createIncidentReport(asyncCallStart, map); // 7
 //		createNewTerritoriesReport(asyncCallStart, map); // 8
 //        createGenderAndAgeReport(asyncCallStart, map); // 9
@@ -92,6 +92,7 @@ public class AsyncCallStart {
 //        createDictionariesErrorsIncidentStatisticsReport(asyncCallStart, map); // 17
 //        sendQueryAndGetResult(asyncCallStart, map, "{\n" + "    \"type\": \"REPORT_ONE_TERRITORY_ATTACHMENT\",\n" + "    \"data\": \"{\\\"dt\\\":\\\"2024-04-15\\\"}\",\n" + "    \"source\": \"t-foms\"\n" + "}"); // 18
 //        createOneTerritoryAttachmentReport(asyncCallStart, map); // 18
+//        sendQueryAndGetResult(asyncCallStart, map, "{\n" + "    \"type\": \"CREATE_INCIDENT_SLOW\",\n" + "    \"data\": \"{\\\"incidentType\\\":\\\"_\\\", \\\"createDate\\\":\\\"2023-12-01\\\"}\",\n" + "    \"source\": \"t-foms\"\n" + "}"); //
 //		pollReportData(asyncCallStart, map, "3c8b3123-ea0c-4849-b461-2bdc002ae706");
 //        getReportList(map, asyncCallStart);
 //        String incident = asyncCallStart.sendPost("https://erzl-dev.element-lab.ru/api/incident/statistic/udm?dtFrom=2023-01-01&dtTo=2023-10-29", RequestMethod.GET, map, null);
@@ -104,8 +105,13 @@ public class AsyncCallStart {
 //        System.out.println(region2);
 //		getOrganizationNameList(map, asyncCallStart);
 //		getUserNameList(map, asyncCallStart);
-//		String organizations = asyncCallStart.sendPost("https://erzl-dev.element-lab.ru/api/auth/organizations?types=&pageNumber=1&pageSize=25&searchText=%D0%A2%D0%A4%D0%9E%D0%9C%D0%A1", RequestMethod.GET, map, null);
-//		String organizations2 = asyncCallStart.sendPost( "https://erzl-dev.element-lab.ru/api/auth/organizations/638073db-e8e3-4b11-bda2-cb84dfe89f70", RequestMethod.GET, map, null);
+//        System.out.println(map.toString());
+//        String organizations = asyncCallStart.sendPost("https://erzl-dev.element-lab.ru/api/auth/organizations?types=&pageNumber=1&pageSize=25&searchText=%D0%A2%D0%A4%D0%9E%D0%9C%D0%A1", RequestMethod.GET, map, null);
+//        String organizations2 = asyncCallStart.sendPost("https://erzl-dev.element-lab.ru/api/auth/organizations/638073db-e8e3-4b11-bda2-cb84dfe89f70", RequestMethod.GET, map, null);
+//        String organizations = asyncCallStart.sendPost("https://erzl-dev.element-lab.ru/api/auth/organizations?types=TFOMS&pageNumber=1&pageSize=25", RequestMethod.GET, map, null);
+//        String organizations2 = asyncCallStart.sendPost("https://erzl-dev.element-lab.ru/api/auth/organizations?types=TFOMS_UNTRUSTED&pageNumber=1&pageSize=25", RequestMethod.GET, map, null);
+//        System.out.println(organizations);
+//        System.out.println(organizations2);
 //		getStatistics(asyncCallStart, token, new SimpleDateFormat("yyyy-MM-dd").parse("2023-02-01"));
 //		getStatisticsInALoop2(asyncCallStart, token);
 //		sendQueryAndGetResult(asyncCallStart, map, "{\n" + "    \"type\": \"SUSPEND_OMS_POLICY\",\n" + "    \"data\": \"{"
@@ -442,10 +448,10 @@ public class AsyncCallStart {
 
     private static void createStatisticsReport(AsyncCallStart asyncCallStart, LinkedHashMap<String, String> map) throws Exception {
 //		Это тестовый пример!
-//        ReportCreateDto reportCreateDto = new ReportCreateDto(OperationType.TFOMS_CALL_METHOD_STATISTICS_REPORT, "t-foms", "xlsx", Arrays.asList(new ReportParameter("dt", "2023-02-01"), new ReportParameter("source", "t-foms"), new ReportParameter("accountId", "-1")));
+        ReportCreateDto reportCreateDto = new ReportCreateDto(OperationType.TFOMS_CALL_METHOD_STATISTICS_REPORT, "t-foms", "xlsx", true, Arrays.asList(new ReportParameter("dt", "2023-02-01"), new ReportParameter("source", "t-foms"), new ReportParameter("accountId", "-1")));
 //		ReportCreateDto reportCreateDto = new ReportCreateDto(OperationType.TFOMS_CALL_METHOD_STATISTICS_REPORT, "t-foms", "xlsx", Arrays.asList(new ReportParameter("dt", "2023-02-01"), new ReportParameter("docsTypes", "FIND_PERSONS_BY_CRITERIA_REQUEST,GET_ALL_CURRENT_ENP_POLL_REQUEST,GET_INSURANCE_STATUS_CHANGES_POLL_REQUEST,GET_VIEW_DATA_INSURANCE_POLL_REQUEST"), new ReportParameter("source", "t-foms"), new ReportParameter("accountId", "-1")));
 //        ReportCreateDto reportCreateDto = new ReportCreateDto(OperationType.TFOMS_CALL_METHOD_STATISTICS_REPORT, "t-foms", "xlsx", Arrays.asList(new ReportParameter("dt", "2023-06-20"), new ReportParameter("organizationIds", "6cf1b649-13cd-4858-9438-8bf2332f9030,638073db-e8e3-4b11-bda2-cb84dfe89f70"), new ReportParameter("source", "t-foms"), new ReportParameter("accountId", "-1")));
-        ReportCreateDto reportCreateDto = new ReportCreateDto(OperationType.TFOMS_CALL_METHOD_STATISTICS_REPORT, "t-foms", "xlsx", true, Arrays.asList(new ReportParameter("dt", "2023-06-20"), new ReportParameter("organizationIds", "ffff-ffff-ffff-bda2-cb84dfe89f70"), new ReportParameter("source", "t-foms"), new ReportParameter("accountId", "-1")));
+//        ReportCreateDto reportCreateDto = new ReportCreateDto(OperationType.TFOMS_CALL_METHOD_STATISTICS_REPORT, "t-foms", "xlsx", true, Arrays.asList(new ReportParameter("dt", "2023-06-20"), new ReportParameter("organizationIds", "ffff-ffff-ffff-bda2-cb84dfe89f70"), new ReportParameter("source", "t-foms"), new ReportParameter("accountId", "-1")));
 //		ReportCreateDto reportCreateDto = new ReportCreateDto(OperationType.TFOMS_CALL_METHOD_STATISTICS_REPORT, "t-foms", "xlsx", Arrays.asList(new ReportParameter("dt", "2023-06-20"), new ReportParameter("organizationIds", "6cf1b649-13cd-4858-9438-8bf2332f9030"), new ReportParameter("source", "t-foms"), new ReportParameter("accountId", "-1")));
 //		ReportCreateDto reportCreateDto = new ReportCreateDto(OperationType.TFOMS_CALL_METHOD_STATISTICS_REPORT, "t-foms", "xlsx", Arrays.asList(new ReportParameter("dt", "2023-06-20"), new ReportParameter("organizationIds", "638073db-e8e3-4b11-bda2-cb84dfe89f70"), new ReportParameter("source", "t-foms"), new ReportParameter("accountId", "-1")));
 //		ReportCreateDto reportCreateDto = new ReportCreateDto(OperationType.TFOMS_CALL_METHOD_STATISTICS_REPORT, "t-foms", "xlsx", Arrays.asList(new ReportParameter("dt", "2023-06-20"), new ReportParameter("docsTypes", "PERSON_DATA_REQUEST,SUBMIT_APPLICATION_REQUEST"), new ReportParameter("organizationIds", "6cf1b649-13cd-4858-9438-8bf2332f9030,638073db-e8e3-4b11-bda2-cb84dfe89f70"), new ReportParameter("source", "t-foms"), new ReportParameter("accountId", "-1")));
