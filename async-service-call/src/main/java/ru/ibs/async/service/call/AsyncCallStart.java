@@ -75,7 +75,7 @@ public class AsyncCallStart {
 //        createAttachedAndInsuredPersonsAndSmoReport("http://localhost:8082/api/mpi-report/operation/start", asyncCallStart, map); // 3
 //        createCitizenshipReport("http://localhost:8082/api/mpi-report/operation/start", asyncCallStart, map); // 4
 //		createMpiEventsStatisticsReport("http://localhost:8082/api/mpi-report/operation/start", asyncCallStart, map); // 5
-        createStatisticsReport(asyncCallStart, map); // 6
+//        createStatisticsReport(asyncCallStart, map); // 6
 //        createIncidentReport(asyncCallStart, map); // 7
 //		createNewTerritoriesReport(asyncCallStart, map); // 8
 //        createGenderAndAgeReport(asyncCallStart, map); // 9
@@ -88,12 +88,16 @@ public class AsyncCallStart {
 //        createInsuredDistributionReport(asyncCallStart, map); // 13
 //        createInsuredAmountReport(asyncCallStart, map); // 14
 //        createInsuredAmountAttachedToInsuranceOrganizationsReport(asyncCallStart, map); // 15
+//        sendQueryAndGetResult(asyncCallStart, map, "{\n" + "    \"type\": \"REPORT_INSURED_AMOUNT_ATTACHED_TO_INSURANCE_ORGANIZATIONS\",\n" + "    \"data\": \"{\\\"dt\\\":\\\"2024-06-01\\\"}\",\n" + "    \"source\": \"t-foms\"\n" + "}"); // 15
 //        createWorkingAndIdleReport(asyncCallStart, map); // 16;
 //        createDictionariesErrorsIncidentStatisticsReport(asyncCallStart, map); // 17
 //        sendQueryAndGetResult(asyncCallStart, map, "{\n" + "    \"type\": \"REPORT_ONE_TERRITORY_ATTACHMENT\",\n" + "    \"data\": \"{\\\"dt\\\":\\\"2024-04-15\\\"}\",\n" + "    \"source\": \"t-foms\"\n" + "}"); // 18
 //        createOneTerritoryAttachmentReport(asyncCallStart, map); // 18
 //        sendQueryAndGetResult(asyncCallStart, map, "{\n" + "    \"type\": \"CREATE_INCIDENT_SLOW\",\n" + "    \"data\": \"{\\\"incidentType\\\":\\\"_\\\", \\\"createDate\\\":\\\"2023-12-01\\\"}\",\n" + "    \"source\": \"t-foms\"\n" + "}"); //
 //		pollReportData(asyncCallStart, map, "3c8b3123-ea0c-4849-b461-2bdc002ae706");
+//        createInsuredPersonsByAgeAndRegionsReport(asyncCallStart, map); // 19
+//        sendQueryAndGetResult(asyncCallStart, map, "{\n" + "    \"type\": \"REPORT_NIL_IDENTIFICATION_REQUESTS\",\n" + "    \"data\": \"{\\\"dateFrom\\\":\\\"2024-01-01\\\",\\\"dateTo\\\":\\\"2024-04-15\\\"}\",\n" + "    \"source\": \"t-foms\"\n" + "}"); // 20
+        createNilIdentificationRequestsReport(asyncCallStart, map);
 //        getReportList(map, asyncCallStart);
 //        String incident = asyncCallStart.sendPost("https://erzl-dev.element-lab.ru/api/incident/statistic/udm?dtFrom=2023-01-01&dtTo=2023-10-29", RequestMethod.GET, map, null);
 //		String incident = asyncCallStart.sendPost("https://erzl-dev.element-lab.ru/api/incident/statistic/udm?reason", RequestMethod.GET, map, null);
@@ -448,7 +452,7 @@ public class AsyncCallStart {
 
     private static void createStatisticsReport(AsyncCallStart asyncCallStart, LinkedHashMap<String, String> map) throws Exception {
 //		Это тестовый пример!
-        ReportCreateDto reportCreateDto = new ReportCreateDto(OperationType.TFOMS_CALL_METHOD_STATISTICS_REPORT, "t-foms", "xlsx", true, Arrays.asList(new ReportParameter("dt", "2023-02-01"), new ReportParameter("source", "t-foms"), new ReportParameter("accountId", "-1")));
+//        ReportCreateDto reportCreateDto = new ReportCreateDto(OperationType.TFOMS_CALL_METHOD_STATISTICS_REPORT, "t-foms", "xlsx", true, Arrays.asList(new ReportParameter("dt", "2023-02-01"), new ReportParameter("source", "t-foms"), new ReportParameter("accountId", "-1")));
 //		ReportCreateDto reportCreateDto = new ReportCreateDto(OperationType.TFOMS_CALL_METHOD_STATISTICS_REPORT, "t-foms", "xlsx", Arrays.asList(new ReportParameter("dt", "2023-02-01"), new ReportParameter("docsTypes", "FIND_PERSONS_BY_CRITERIA_REQUEST,GET_ALL_CURRENT_ENP_POLL_REQUEST,GET_INSURANCE_STATUS_CHANGES_POLL_REQUEST,GET_VIEW_DATA_INSURANCE_POLL_REQUEST"), new ReportParameter("source", "t-foms"), new ReportParameter("accountId", "-1")));
 //        ReportCreateDto reportCreateDto = new ReportCreateDto(OperationType.TFOMS_CALL_METHOD_STATISTICS_REPORT, "t-foms", "xlsx", Arrays.asList(new ReportParameter("dt", "2023-06-20"), new ReportParameter("organizationIds", "6cf1b649-13cd-4858-9438-8bf2332f9030,638073db-e8e3-4b11-bda2-cb84dfe89f70"), new ReportParameter("source", "t-foms"), new ReportParameter("accountId", "-1")));
 //        ReportCreateDto reportCreateDto = new ReportCreateDto(OperationType.TFOMS_CALL_METHOD_STATISTICS_REPORT, "t-foms", "xlsx", true, Arrays.asList(new ReportParameter("dt", "2023-06-20"), new ReportParameter("organizationIds", "ffff-ffff-ffff-bda2-cb84dfe89f70"), new ReportParameter("source", "t-foms"), new ReportParameter("accountId", "-1")));
@@ -460,6 +464,13 @@ public class AsyncCallStart {
 //		ReportCreateDto reportCreateDto = new ReportCreateDto(OperationType.TFOMS_CALL_METHOD_STATISTICS_REPORT, "t-foms", "xlsx", Arrays.asList(new ReportParameter("dt", "2023-06-20"), new ReportParameter("docsTypes", ""), new ReportParameter("organizationIds", ""), new ReportParameter("source", "t-foms"), new ReportParameter("accountId", "-1")));
 //		ReportCreateDto reportCreateDto = new ReportCreateDto(OperationType.TFOMS_CALL_METHOD_STATISTICS_REPORT, "t-foms", "xlsx", Arrays.asList(new ReportParameter("dt", "2023-07-12"), new ReportParameter("source", "t-foms"), new ReportParameter("accountId", "-1")));
 //        ReportCreateDto reportCreateDto = new ReportCreateDto(OperationType.TFOMS_CALL_METHOD_STATISTICS_REPORT, "t-foms", "xlsx", Arrays.asList(new ReportParameter("dt", "2024-01-29"), new ReportParameter("organizationIds", "5b6af3a0-98c6-4dab-9084-e758548ac17b"), new ReportParameter("organizations", "ТФОМС 34000"), new ReportParameter("organizationsType", "TFOMS")));
+//        ReportCreateDto reportCreateDto = new ReportCreateDto(OperationType.TFOMS_CALL_METHOD_STATISTICS_REPORT, "t-foms", "xlsx", true, Arrays.asList(new ReportParameter("dt", "2024-01-29"), new ReportParameter("organizationIds", "6cf1b649-13cd-4858-9438-8bf2332f9030,638073db-e8e3-4b11-bda2-cb84dfe89f70,5b6af3a0-98c6-4dab-9084-e758548ac17b"), new ReportParameter("organizations", "ТФОМС 34000"), new ReportParameter("organizationsType", "TFOMS_UNTRUSTED,TFOMS"), new ReportParameter("organizationsTypeText", "Недоверенный ТФОМС, ТФОМС")));
+        ReportCreateDto reportCreateDto = new ReportCreateDto(OperationType.TFOMS_CALL_METHOD_STATISTICS_REPORT, "t-foms", "xlsx", true,
+                Arrays.asList(new ReportParameter("dt", "2024-05-23"),
+                        new ReportParameter("organizationIds", ""),
+                        new ReportParameter("organizations", ""),
+                        new ReportParameter("organizationsType", "TFOMS_UNTRUSTED"),
+                        new ReportParameter("organizationsTypeText", "Недоверенный ТФОМС")));
         String post = reportCreateDto.toPost();
         System.out.println(post);
         String startResult = asyncCallStart.sendPost("http://localhost:8082/api/mpi-report/operation/start", RequestMethod.POST, map, post);
@@ -584,6 +595,24 @@ public class AsyncCallStart {
 //        ReportCreateDto reportCreateDto = new ReportCreateDto(OperationType.REPORT_ONE_TERRITORY_ATTACHMENT, "t-foms", "xlsx", Arrays.asList(new ReportParameter("dt", "2024-01-01"), new ReportParameter("attachmentProfile", "1,2,3,4"), new ReportParameter("okatoList", ""), new ReportParameter("districtName", "Имя области 34000")));
 //        ReportCreateDto reportCreateDto = new ReportCreateDto(OperationType.REPORT_ONE_TERRITORY_ATTACHMENT, "t-foms", "xlsx", Arrays.asList(new ReportParameter("dt", "2024-01-01"), new ReportParameter("attachmentProfile", ""), new ReportParameter("okatoList", ""), new ReportParameter("districtName", "Имя области 34000")));
         ReportCreateDto reportCreateDto = new ReportCreateDto(OperationType.REPORT_ONE_TERRITORY_ATTACHMENT, "t-foms", "xlsx", true, Arrays.asList(new ReportParameter("dt", "2024-04-15"), new ReportParameter("attachmentProfile", ""), new ReportParameter("okatoList", ""), new ReportParameter("districtName", "Имя области 34000")));
+        String post = reportCreateDto.toPost();
+        System.out.println(post);
+        String startResult = asyncCallStart.sendPost("http://localhost:8082/api/mpi-report/operation/start", RequestMethod.POST, map, post);
+        System.out.println(startResult);
+    }
+
+    private static void createInsuredPersonsByAgeAndRegionsReport(AsyncCallStart asyncCallStart, LinkedHashMap<String, String> map) throws Exception {
+//        ReportCreateDto reportCreateDto = new ReportCreateDto(OperationType.REPORT_ONE_TERRITORY_ATTACHMENT, "t-foms", "xlsx", Arrays.asList(new ReportParameter("dt", "2024-01-01"), new ReportParameter("attachmentProfile", "1,2,3,4"), new ReportParameter("okatoList", ""), new ReportParameter("districtName", "Имя области 34000")));
+//        ReportCreateDto reportCreateDto = new ReportCreateDto(OperationType.REPORT_ONE_TERRITORY_ATTACHMENT, "t-foms", "xlsx", Arrays.asList(new ReportParameter("dt", "2024-01-01"), new ReportParameter("attachmentProfile", ""), new ReportParameter("okatoList", ""), new ReportParameter("districtName", "Имя области 34000")));
+        ReportCreateDto reportCreateDto = new ReportCreateDto(OperationType.REPORT_INSURED_PERSONS_BY_AGE_AND_REGIONS, "t-foms", "xlsx", true, Arrays.asList(new ReportParameter("dates", "2024-04-15,2024-03-01"), new ReportParameter("okatoList", "")));
+        String post = reportCreateDto.toPost();
+        System.out.println(post);
+        String startResult = asyncCallStart.sendPost("http://localhost:8082/api/mpi-report/operation/start", RequestMethod.POST, map, post);
+        System.out.println(startResult);
+    }
+
+    private static void createNilIdentificationRequestsReport(AsyncCallStart asyncCallStart, LinkedHashMap<String, String> map) throws Exception {
+        ReportCreateDto reportCreateDto = new ReportCreateDto(OperationType.REPORT_NIL_IDENTIFICATION_REQUESTS, "t-foms", "xlsx", true, Arrays.asList(new ReportParameter("dtFrom", "2024-01-01"), new ReportParameter("dtTo", "2024-04-15")));
         String post = reportCreateDto.toPost();
         System.out.println(post);
         String startResult = asyncCallStart.sendPost("http://localhost:8082/api/mpi-report/operation/start", RequestMethod.POST, map, post);
