@@ -11,7 +11,7 @@ export MPI_COMMON_SECURITY_IGNITE_PASSWORD=ignite
 export MPI_COMMON_SECURITY_IGNITE_MAP_NAME=devSessionMap
 #export MPI_COMMON_SECURITY_SPRING_PROFILES_ACTIVE=gostech
 #export MPI_COMMON_SECURITY_JWT_SECRET=secret_dev
-export MPI_SERVICE_HOST=https://erzl-dev.element-lab.ru
+export MPI_SERVICE_HOST=https://erzl-dev.rtk-element.ru
 
 #test
 export MPI_COMMON_SECURITY_HAZELCAST_ADDRESS=10.10.21.7:32035
@@ -19,17 +19,15 @@ export MPI_COMMON_SECURITY_HAZELCAST_MAP_NAME=testSessionMap
 export MPI_COMMON_SECURITY_SPRING_PROFILES_ACTIVE=gostech
 export MPI_COMMON_SECURITY_JWT_SECRET=secret_test
 export MPI_COMMON_SECURITY_CONFIG=dataline_hz
-export AUTH_SERVICE_HOST=https://erzl-test.element-lab.ru
+export AUTH_SERVICE_HOST=https://erzl-test.rtk-element.ru
 export AUTH_SERVICE_PRIVATE_URL_PREFIX=/api/auth
 export AUTH_SERVICE_TECHNICAL_URL_LOGIN=/user/technical
 
-
-
-export LEGAL_REP_SERVICE_HOST=https://erzl-dev.element-lab.ru
+export LEGAL_REP_SERVICE_HOST=https://erzl-dev.rtk-element.ru
 export LEGAL_REP_SERVICE_PRIVATE_URL_PREFIX=/api/legal-rep
-export SHVR_SERVICE_HOST=https://erzl-dev.element-lab.ru
-export NSI_SERVICE_NEXT_HOST=https://erzl-dev.element-lab.ru
-export INCIDENT_SERVICE_HOST=https://erzl-dev.element-lab.ru
+export SHVR_SERVICE_HOST=https://erzl-dev.rtk-element.ru
+export NSI_SERVICE_NEXT_HOST=https://erzl-dev.rtk-element.ru
+export INCIDENT_SERVICE_HOST=https://erzl-dev.rtk-element.ru
 export INCIDENT_SERVICE_PRIVATE_URL_PREFIX=/api/incident
 export ASYNC_INTERCEPTOR=ru.elementlab.common.http.base.interceptor.AuthorizationHeaderInterceptor
 export HEADER_AUTHORIZATION="Basic ZGV2ZWxvcGVyOkdJY2F1VzdPYlRsMTk4djRYcjlR"
