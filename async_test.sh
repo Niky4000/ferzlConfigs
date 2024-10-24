@@ -2,6 +2,9 @@ export ASYNC_SERVICE_DB_ASYNC_JDBC_URL="jdbc:postgresql://localhost:5432/async-d
 export ASYNC_SERVICE_DB_MPI_JDBC_URL="jdbc:postgresql://192.168.100.56:5432/mpi?currentSchema=mpi&user=mpi_olap_service_user&password=dMfOl2qtjeBmqwY6Ud59"
 export ASYNC_SERVICE_DB_MPI_MASTER_JDBC_URL="jdbc:postgresql://192.168.100.56:5432/mpi?currentSchema=mpi&user=mpi_olap_service_user&password=dMfOl2qtjeBmqwY6Ud59"
 export ASYNC_SERVICE_DB_OLAP_JDBC_URL="jdbc:postgresql://192.168.100.56:5432/mpi_olap_service?currentSchema=mpi_olap_service,mpi_olap_emp_service&user=mpi_olap_service_async_service_user&password=Y1khfVA43HbwP2F8wkvC"
+export ASYNC_SERVICE_DB_TFOMS_JDBC_URL="jdbc:postgresql://192.168.100.56:5432/t_foms_adapter?user=t_foms_adapter_user&password=GwmkfwkofkoSdVvdxMMm"
+export ASYNC_SERVICE_DB_SMO_JDBC_URL="jdbc:postgresql://192.168.100.56:5432/smo_adapter?user=smo_adapter_user&password=qDYkfrVWdTo3jYnP"
+export ASYNC_SERVICE_DB_MO_JDBC_URL="jdbc:postgresql://192.168.100.56:5432/mo_adapter?user=mo_adapter_user&password=pGwhvX3X5rwBQuP9"
 
 export ASYNC_URL_PREFIX=/api/async
 export ASYNC_PRIVATE_URL_PREFIX=/async
@@ -34,4 +37,6 @@ export HEADER_AUTHORIZATION="Basic ZGV2ZWxvcGVyOkdJY2F1VzdPYlRsMTk4djRYcjlR"
 #export MPI_COMMON_SECURITY_CONFIG=dataline_hz
 #export ASYNC_AUTHENTICATION_SERVICE_ACCOUNT_LOGIN="async.service@rtk-element.ru"
 #export ASYNC_AUTHENTICATION_SERVICE_ACCOUNT_PASSWORD="mJN~GVm~"
+export FILE_KEEPER_URL=http://127.0.0.1:8081/api/file-keeper
+export ORGANIZATION_SERVICE_HOST=https://erzl-test.rtk-element.ru
 /usr/lib/jvm/jdk-11/bin/java -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=21044 -jar /home/me/GIT/ferzl/async-service/target/async-service-0.0.1.jar

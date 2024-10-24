@@ -26,4 +26,5 @@ export MPI_REPORTER_SERVICE_LIQUIBASE_ENABLED=true
 #export MPI_REPORTER_LOG_LEVEL_ROOT=TRACE
 #export MPI_REPORTER_LOG_LEVEL=TRACE
 #export MPI_REPORTER_LOG_LEVEL_COMMON=TRACE
+export FILE_KEEPER_URL=http://127.0.0.1:8081/api/file-keeper
 /usr/lib/jvm/jdk-11/bin/java -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=21045 -jar /home/me/GIT/ferzl/mpi-reporter/target/mpi-reporter-0.0.1.jar --server.port=8082
