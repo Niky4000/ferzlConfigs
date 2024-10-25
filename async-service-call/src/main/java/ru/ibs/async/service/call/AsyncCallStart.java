@@ -76,7 +76,7 @@ public class AsyncCallStart {
 //        createAttachedAndInsuredPersonsAndSmoReport("http://localhost:8082/api/mpi-report/operation/start", asyncCallStart, map); // 3
 //        createCitizenshipReport("http://localhost:8082/api/mpi-report/operation/start", asyncCallStart, map); // 4
 //		createMpiEventsStatisticsReport("http://localhost:8082/api/mpi-report/operation/start", asyncCallStart, map); // 5
-//        createStatisticsReport(asyncCallStart, map); // 6
+        createStatisticsReport(asyncCallStart, map); // 6
 //        createIncidentReport(asyncCallStart, map); // 7
 //		createNewTerritoriesReport(asyncCallStart, map); // 8
         createGenderAndAgeReport(asyncCallStart, map); // 9
