@@ -79,7 +79,7 @@ public class AsyncCallStart {
 //        createStatisticsReport(asyncCallStart, map); // 6
 //        createIncidentReport(asyncCallStart, map); // 7
 //		createNewTerritoriesReport(asyncCallStart, map); // 8
-//        createGenderAndAgeReport(asyncCallStart, map); // 9
+        createGenderAndAgeReport(asyncCallStart, map); // 9
 //        createMoAttachmentCountReport(asyncCallStart, map); // 10
 //        createAttachmentProfileDistributionReport(asyncCallStart, map); // 11
 //        sendQueryAndGetResult(asyncCallStart, map, "{\n" + "    \"type\": \"UNDISTRIBUTED_INSURED_UNLOADING\",\n" + "    \"data\": \"{\\\"dt\\\":\\\"2023-09-01\\\"}\",\n" + "    \"source\": \"t-foms\"\n" + "}"); // 12
@@ -102,7 +102,7 @@ public class AsyncCallStart {
 //        sendQueryAndGetResult(asyncCallStart, map, "{\n" + "    \"type\": \"REPORT_NIL_IDENTIFICATION_REQUESTS\",\n" + "    \"data\": \"{\\\"decision\\\":\\\"\\\",\\\"decisionName\\\":\\\"\\\",\\\"dtFrom\\\":\\\"2024-08-01\\\",\\\"dtTo\\\":\\\"2024-08-30\\\",\\\"moNames\\\":\\\"____________\\\",\\\"moCodes\\\":\\\"440030\\\"}\",\n" + "    \"source\": \"t-foms\"\n" + "}"); // 20
 //        createInsuredForeignersByRegionsReport(asyncCallStart, map); // 21
 //        createNilIdentificationRequestsReport(asyncCallStart, map); // 22
-        createSemdRequestsReport(asyncCallStart, map); // 23
+//        createSemdRequestsReport(asyncCallStart, map); // 23
 //        getReportList(map, asyncCallStart);
 //        String incident = asyncCallStart.sendPost("https://erzl-dev.element-lab.ru/api/incident/statistic/udm?dtFrom=2023-01-01&dtTo=2023-10-29", RequestMethod.GET, map, null);
 //		String incident = asyncCallStart.sendPost("https://erzl-dev.element-lab.ru/api/incident/statistic/udm?reason", RequestMethod.GET, map, null);
@@ -473,11 +473,17 @@ public class AsyncCallStart {
 //        ReportCreateDto reportCreateDto = new ReportCreateDto(OperationType.TFOMS_CALL_METHOD_STATISTICS_REPORT, "t-foms", "xlsx", Arrays.asList(new ReportParameter("dt", "2024-01-29"), new ReportParameter("organizationIds", "5b6af3a0-98c6-4dab-9084-e758548ac17b"), new ReportParameter("organizations", "ТФОМС 34000"), new ReportParameter("organizationsType", "TFOMS")));
 //        ReportCreateDto reportCreateDto = new ReportCreateDto(OperationType.TFOMS_CALL_METHOD_STATISTICS_REPORT, "t-foms", "xlsx", true, Arrays.asList(new ReportParameter("dt", "2024-01-29"), new ReportParameter("organizationIds", "6cf1b649-13cd-4858-9438-8bf2332f9030,638073db-e8e3-4b11-bda2-cb84dfe89f70,5b6af3a0-98c6-4dab-9084-e758548ac17b"), new ReportParameter("organizations", "ТФОМС 34000"), new ReportParameter("organizationsType", "TFOMS_UNTRUSTED,TFOMS"), new ReportParameter("organizationsTypeText", "Недоверенный ТФОМС, ТФОМС")));
 //        ReportCreateDto reportCreateDto = new ReportCreateDto(OperationType.TFOMS_CALL_METHOD_STATISTICS_REPORT, "t-foms", "xlsx", true, Arrays.asList(new ReportParameter("dt", "2024-05-23"), new ReportParameter("organizationIds", ""), new ReportParameter("organizations", ""), new ReportParameter("organizationsType", "TFOMS_UNTRUSTED"), new ReportParameter("organizationsTypeText", "Недоверенный ТФОМС")));
-        ReportCreateDto reportCreateDto = new ReportCreateDto(OperationType.TFOMS_CALL_METHOD_STATISTICS_REPORT, "t-foms", "xlsx", true,
+//        ReportCreateDto reportCreateDto = new ReportCreateDto(OperationType.TFOMS_CALL_METHOD_STATISTICS_REPORT, "t-foms", "xlsx", true,
+//                Arrays.asList(new ReportParameter("dt", "2024-06-22"),
+//                        new ReportParameter("organizationIds", ""),
+//                        new ReportParameter("organizations", ""),
+//                        new ReportParameter("organizationsType", ""),
+//                        new ReportParameter("organizationsTypeText", "")));
+        ReportCreateDto reportCreateDto = new ReportCreateDto(OperationType.REPORT_CALL_METHOD_STATISTICS, "t-foms", "xlsx", true,
                 Arrays.asList(new ReportParameter("dt", "2024-06-22"),
-                        new ReportParameter("organizationIds", ""),
+                        new ReportParameter("organizationIds", "6cf1b649-13cd-4858-9438-8bf2332f9030,638073db-e8e3-4b11-bda2-cb84dfe89f70"),
                         new ReportParameter("organizations", ""),
-                        new ReportParameter("organizationsType", ""),
+                        new ReportParameter("organizationsType", "TFOMS,TFOMS_UNTRUSTED"),
                         new ReportParameter("organizationsTypeText", "")));
         String post = reportCreateDto.toPost();
         System.out.println(post);
@@ -513,8 +519,9 @@ public class AsyncCallStart {
 //        ReportCreateDto reportCreateDto = new ReportCreateDto(OperationType.REPORT_GENDER_AND_AGE, "t-foms", "xlsx", Arrays.asList(new ReportParameter("dt", "2023-12-11"), new ReportParameter("attachmentProfile", "1,2,3,4"), new ReportParameter("grouping", "СМО"), new ReportParameter("source", "t-foms"), new ReportParameter("accountId", "-1")));
 //        ReportCreateDto reportCreateDto = new ReportCreateDto(OperationType.REPORT_GENDER_AND_AGE, "t-foms", "xlsx", Arrays.asList(new ReportParameter("dt", "2023-12-11"), new ReportParameter("attachmentProfile", "1,2,3,4"), new ReportParameter("grouping", "СМО"), new ReportParameter("source", "t-foms"), new ReportParameter("accountId", "-1")));
 //        ReportCreateDto reportCreateDto = new ReportCreateDto(OperationType.REPORT_GENDER_AND_AGE, "t-foms", "xlsx", Arrays.asList(new ReportParameter("dt", "2023-12-11"), new ReportParameter("attachmentProfile", "1,2,3,4"), new ReportParameter("okatoList", "55000"), new ReportParameter("grouping", "СМО"), new ReportParameter("source", "t-foms"), new ReportParameter("accountId", "-1")));
-        ReportCreateDto reportCreateDto = new ReportCreateDto(OperationType.REPORT_GENDER_AND_AGE, "t-foms", "xlsx", true, Arrays.asList(new ReportParameter("dt", "2023-12-11"), new ReportParameter("attachmentProfile", "1,2,3,4"), new ReportParameter("okatoList", "60000,61000,63000,64000,65000,66000,68000"), new ReportParameter("moCodes", "440039,010001"), new ReportParameter("grouping", "СМО"), new ReportParameter("source", "t-foms"), new ReportParameter("accountId", "-1")));
+//        ReportCreateDto reportCreateDto = new ReportCreateDto(OperationType.REPORT_GENDER_AND_AGE, "t-foms", "xlsx", true, Arrays.asList(new ReportParameter("dt", "2023-12-11"), new ReportParameter("attachmentProfile", "1,2,3,4"), new ReportParameter("okatoList", "60000,61000,63000,64000,65000,66000,68000"), new ReportParameter("moCodes", "440039,010001"), new ReportParameter("grouping", "СМО"), new ReportParameter("source", "t-foms"), new ReportParameter("accountId", "-1")));
 //        ReportCreateDto reportCreateDto = new ReportCreateDto(OperationType.REPORT_GENDER_AND_AGE, "t-foms", "xlsx", Arrays.asList(new ReportParameter("dt", "2023-12-11"), new ReportParameter("attachmentProfile", "1,2,3,4"), new ReportParameter("okatoList", "60000,61000,63000,64000,65000,66000,68000"), new ReportParameter("moCodes", "440039"), new ReportParameter("grouping", "СМО"), new ReportParameter("source", "t-foms"), new ReportParameter("accountId", "-1")));
+        ReportCreateDto reportCreateDto = new ReportCreateDto(OperationType.REPORT_GENDER_AND_AGE, "t-foms", "xlsx", true, Arrays.asList(new ReportParameter("dt", "2024-03-01"), new ReportParameter("attachmentProfile", "1,2,3,4"), new ReportParameter("okatoList", "60000,61000,63000,64000,65000,66000,68000,34000"), new ReportParameter("grouping", "СМО"), new ReportParameter("source", "t-foms"), new ReportParameter("accountId", "-1")));
         String post = reportCreateDto.toPost();
         System.out.println(post);
         String startResult = asyncCallStart.sendPost("http://localhost:8082/api/mpi-report/operation/start", RequestMethod.POST, map, post);
@@ -612,7 +619,7 @@ public class AsyncCallStart {
     private static void createInsuredPersonsByAgeAndRegionsReport(AsyncCallStart asyncCallStart, LinkedHashMap<String, String> map) throws Exception {
 //        ReportCreateDto reportCreateDto = new ReportCreateDto(OperationType.REPORT_ONE_TERRITORY_ATTACHMENT, "t-foms", "xlsx", Arrays.asList(new ReportParameter("dt", "2024-01-01"), new ReportParameter("attachmentProfile", "1,2,3,4"), new ReportParameter("okatoList", ""), new ReportParameter("districtName", "Имя области 34000")));
 //        ReportCreateDto reportCreateDto = new ReportCreateDto(OperationType.REPORT_ONE_TERRITORY_ATTACHMENT, "t-foms", "xlsx", Arrays.asList(new ReportParameter("dt", "2024-01-01"), new ReportParameter("attachmentProfile", ""), new ReportParameter("okatoList", ""), new ReportParameter("districtName", "Имя области 34000")));
-        ReportCreateDto reportCreateDto = new ReportCreateDto(OperationType.REPORT_INSURED_PERSONS_BY_AGE_AND_REGIONS, "t-foms", "xlsx", true, Arrays.asList(new ReportParameter("dates", "2024-04-15,2024-03-01"), new ReportParameter("okatoList", "")));
+        ReportCreateDto reportCreateDto = new ReportCreateDto(OperationType.REPORT_INSURED_PERSONS_BY_AGE_AND_REGIONS, "t-foms", "xlsx", true, Arrays.asList(new ReportParameter("dates", "2024-04-15,2024-03-01,2024-09-01,2024-07-01,2024-08-01,2024-05-22"), new ReportParameter("okatoList", "")));
         String post = reportCreateDto.toPost();
         System.out.println(post);
         String startResult = asyncCallStart.sendPost("http://localhost:8082/api/mpi-report/operation/start", RequestMethod.POST, map, post);
@@ -644,10 +651,10 @@ public class AsyncCallStart {
                 new ReportParameter("dtDeathFrom", "2024-01-01"),
                 new ReportParameter("dtDeathTo", "2024-04-15"),
                 new ReportParameter("organizationsType", "ТФОМС") //,
-//                new ReportParameter("type", "НИЛ"),
-//                new ReportParameter("type", "НР"),
-//                new ReportParameter("moCodes", "440003,440089,449911"),
-//                new ReportParameter("district", "34000")
+        //                new ReportParameter("type", "НИЛ"),
+        //                new ReportParameter("type", "НР"),
+        //                new ReportParameter("moCodes", "440003,440089,449911"),
+        //                new ReportParameter("district", "34000")
         ));
 //        ReportCreateDto reportCreateDto = new ReportCreateDto(OperationType.REPORT_SEMD, "t-foms", "xlsx", true, Arrays.asList(
 //                new ReportParameter("dtBirthFrom", "2023-01-01"),

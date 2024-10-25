@@ -1,11 +1,7 @@
 export ASYNC_SERVICE_DB_ASYNC_JDBC_URL="jdbc:postgresql://localhost:5432/async-db?currentSchema=public&user=postgres&password=postgres"
 export ASYNC_SERVICE_DB_MPI_JDBC_URL="jdbc:postgresql://192.168.100.55:5432/mpi?currentSchema=mpi&user=mpi&password=H7ZHE30CYRs1"
 export ASYNC_SERVICE_DB_MPI_MASTER_JDBC_URL="jdbc:postgresql://192.168.100.55:5432/mpi?currentSchema=mpi&user=mpi&password=H7ZHE30CYRs1"
-#export ASYNC_SERVICE_DB_OLAP_JDBC_URL="jdbc:postgresql://192.168.100.55:5432/mpi_olap_service?currentSchema=mpi_olap_service&user=mpi_olap_service_async_service_user&password=BUBiDbq1cgDnSZa0K1Iy"
 export ASYNC_SERVICE_DB_OLAP_JDBC_URL="jdbc:postgresql://192.168.100.55:5432/mpi_olap_service?currentSchema=mpi_olap_service,mpi_olap_emp_service&user=mpi_olap_service_async_service_user&password=BUBiDbq1cgDnSZa0K1Iy"
-export ASYNC_SERVICE_DB_TFOMS_JDBC_URL="jdbc:postgresql://192.168.100.55:5432/t_foms_adapter?user=t_foms_adapter_user&password=UKKZHqLvjfbr"
-export ASYNC_SERVICE_DB_SMO_JDBC_URL="jdbc:postgresql://192.168.100.55:5432/smo_adapter?user=smo_adapter_user&password=122VbmVetOFiBe4e"
-export ASYNC_SERVICE_DB_MO_JDBC_URL="jdbc:postgresql://192.168.100.55:5432/mo_adapter?user=mo_adapter_user&password=sCvt6NStjB7Xd5"
 export ASYNC_URL_PREFIX=/api/async
 export ASYNC_PRIVATE_URL_PREFIX=/async
 export MPI_COMMON_SECURITY_IGNITE_ADDRESS=10.10.21.10:31987
@@ -39,5 +35,4 @@ export MPI_COMMON_SECURITY_CONFIG=dataline_hz
 export SWAGGER_UI_CLASSPATH="/home/me/.m2/repository/org/webjars/swagger-ui/5.10.3/swagger-ui-5.10.3.jar"
 #export ASYNC_AUTHENTICATION_SERVICE_ACCOUNT_LOGIN="async.service@rtk-element.ru"
 #export ASYNC_AUTHENTICATION_SERVICE_ACCOUNT_PASSWORD="mJN~GVm~"
-export FILE_KEEPER_URL=http://127.0.0.1:8081/api/file-keeper
-/usr/lib/jvm/jdk-11/bin/java -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=21044 -jar /home/me/GIT/ferzl/async-service/target/async-service-0.0.1.jar
+/usr/lib/jvm/jdk-11/bin/java -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=21040 -jar /home/me/GIT/ferzl/other_services/datamart-service/target/datamart-service-0.0.1.jar
