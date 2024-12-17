@@ -40,4 +40,6 @@ export SWAGGER_UI_CLASSPATH="/home/me/.m2/repository/org/webjars/swagger-ui/5.10
 #export ASYNC_AUTHENTICATION_SERVICE_ACCOUNT_LOGIN="async.service@rtk-element.ru"
 #export ASYNC_AUTHENTICATION_SERVICE_ACCOUNT_PASSWORD="mJN~GVm~"
 export FILE_KEEPER_URL=http://127.0.0.1:8081/api/file-keeper
+export ASYNC_SERVICE_AUTHORIZATION_TRUSTED_SERVICE_KEYS=async-service-technical-account-key-2024-12-02
+export ASYNC_SERVICE_TECHNICAL_ACCOUNT_TOKEN=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpbnRlcm5hbCI6dHJ1ZSwic2Vzc2lvbi1pZCI6ImFzeW5jLXNlcnZpY2UtdGVjaG5pY2FsLWFjY291bnQta2V5LTIwMjQtMTItMDIifQ.6VM8LpM_YMeeURrM2SiV7fGmBANjSj2dOo1vnAMWi8A
 /usr/lib/jvm/jdk-11/bin/java -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=21044 -jar /home/me/GIT/ferzl/async-service/target/async-service-0.0.1.jar

@@ -76,10 +76,10 @@ public class AsyncCallStart {
 //        createAttachedAndInsuredPersonsAndSmoReport("http://localhost:8082/api/mpi-report/operation/start", asyncCallStart, map); // 3
 //        createCitizenshipReport("http://localhost:8082/api/mpi-report/operation/start", asyncCallStart, map); // 4
 //		createMpiEventsStatisticsReport("http://localhost:8082/api/mpi-report/operation/start", asyncCallStart, map); // 5
-        createStatisticsReport(asyncCallStart, map); // 6
+//        createStatisticsReport(asyncCallStart, map); // 6
 //        createIncidentReport(asyncCallStart, map); // 7
 //		createNewTerritoriesReport(asyncCallStart, map); // 8
-        createGenderAndAgeReport(asyncCallStart, map); // 9
+//        createGenderAndAgeReport(asyncCallStart, map); // 9
 //        createMoAttachmentCountReport(asyncCallStart, map); // 10
 //        createAttachmentProfileDistributionReport(asyncCallStart, map); // 11
 //        sendQueryAndGetResult(asyncCallStart, map, "{\n" + "    \"type\": \"UNDISTRIBUTED_INSURED_UNLOADING\",\n" + "    \"data\": \"{\\\"dt\\\":\\\"2023-09-01\\\"}\",\n" + "    \"source\": \"t-foms\"\n" + "}"); // 12
@@ -103,6 +103,7 @@ public class AsyncCallStart {
 //        createInsuredForeignersByRegionsReport(asyncCallStart, map); // 21
 //        createNilIdentificationRequestsReport(asyncCallStart, map); // 22
 //        createSemdRequestsReport(asyncCallStart, map); // 23
+        createDeduplicationRequestsReport(asyncCallStart, map); // 24
 //        getReportList(map, asyncCallStart);
 //        String incident = asyncCallStart.sendPost("https://erzl-dev.element-lab.ru/api/incident/statistic/udm?dtFrom=2023-01-01&dtTo=2023-10-29", RequestMethod.GET, map, null);
 //		String incident = asyncCallStart.sendPost("https://erzl-dev.element-lab.ru/api/incident/statistic/udm?reason", RequestMethod.GET, map, null);
@@ -113,7 +114,8 @@ public class AsyncCallStart {
 //        String region2 = asyncCallStart.sendPost("http://erzl-test.element-lab.ru/api/nsi/ref-russian-regions?page=0&size=1&okatoCategoryTwo=21000", RequestMethod.GET, Map.of("Authorization", "Basic ZGV2ZWxvcGVyOkdJY2F1VzdPYlRsMTk4djRYcjlR"), null);
 //        System.out.println(region2);
 //		getOrganizationNameList(map, asyncCallStart);
-//		getUserNameList(map, asyncCallStart);
+//        getUserNameList(map, asyncCallStart);
+//        getReportMetaInfo(map, asyncCallStart); // Meta Info!
 //        System.out.println(map.toString());
 //        String organizations = asyncCallStart.sendPost("https://erzl-dev.element-lab.ru/api/auth/organizations?types=&pageNumber=1&pageSize=25&searchText=%D0%A2%D0%A4%D0%9E%D0%9C%D0%A1", RequestMethod.GET, map, null);
 //        String organizations2 = asyncCallStart.sendPost("https://erzl-dev.element-lab.ru/api/auth/organizations/638073db-e8e3-4b11-bda2-cb84dfe89f70", RequestMethod.GET, map, null);
@@ -132,7 +134,6 @@ public class AsyncCallStart {
 //				+ "}]}}\",\n" + "    \"source\": \"t-foms\"\n" + "}");
 //		sendQueryAndGetResult(asyncCallStart, map, "{\n" + "    \"type\": \"SUSPEND_OMS_POLICY\",\n" + "    \"data\": \"{\\\"dt\\\":\\\"2022-07-01\\\",\\\"terr\\\":\\\"01000\\\",\\\"quarter\\\":\\\"true\\\"}\",\n" + "    \"source\": \"t-foms\"\n" + "}");
 //		getReportStatus("0cd6aef2-978f-4285-a3b4-df44b29d2e38", map, asyncCallStart);
-//        getReportMetaInfo(map, asyncCallStart);
 //		String startResult = asyncCallStart.sendPost("http://localhost:8080/api/async/operation/start", RequestMethod.POST, map, "{\n"
 //				+ "    \"type\": \"GET_ALL_CURRENT_ENP\",\n"
 //				+ "    \"data\": \"{ \\\"usr\\\": \\\"user1\\\", \\\"terr\\\": \\\"76000\\\",\\\"dt\\\": \\\"2022-09-04\\\",\\\"source\\\": \\\"t-foms\\\",\\\"accountId\\\": \\\"-1\\\"}\",\n"
@@ -146,7 +147,7 @@ public class AsyncCallStart {
 //		System.out.println(startResult2);
 //		String startResult3 = asyncCallStart.sendPost("http://localhost:8080/api/async/operation/start", RequestMethod.POST, map, "{\n"
 //				+ "    \"type\": \"GET_INSURANCE_STATUS_CHANGES\",\n"
-//				+ "    \"data\": \"{\\\"dtFrom\\\":\\\"2022-12-01\\\",\\\"dtTo\\\":\\\"2022-12-02\\\",\\\"terr\\\":\\\"45000\\\",\\\"smo\\\":\\\"30\\\"}\",\n"
+//				+ "    \"data\": \"{\\\"dtFrom\\\":\\\"2024-11-01\\\",\\\"dtTo\\\":\\\"2024-11-02\\\",\\\"terr\\\":\\\"34000\\\"}\",\n"
 //				+ "    \"source\": \"t-foms\"\n"
 //				+ "}");
 //		System.out.println(startResult3);
@@ -668,6 +669,17 @@ public class AsyncCallStart {
         System.out.println(startResult);
     }
 
+    private static void createDeduplicationRequestsReport(AsyncCallStart asyncCallStart, LinkedHashMap<String, String> map) throws Exception {
+        ReportCreateDto reportCreateDto = new ReportCreateDto(OperationType.REPORT_DEDUPLICATION_INCIDENTS, "t-foms", "xlsx", true, Arrays.asList(
+                new ReportParameter("dtFrom", "2024-11-17"),
+                new ReportParameter("dtTo", "2024-11-29")
+        ));
+        String post = reportCreateDto.toPost();
+        System.out.println(post);
+        String startResult = asyncCallStart.sendPost("http://localhost:8082/api/mpi-report/operation/start", RequestMethod.POST, map, post);
+        System.out.println(startResult);
+    }
+
     private static void pollReportData(AsyncCallStart asyncCallStart, LinkedHashMap<String, String> map, String opToken) throws Exception {
         String pollResult = asyncCallStart.sendPost("http://localhost:8082/api/mpi-report/operation/poll/" + opToken, RequestMethod.GET, map, null);
 //		String pollResult = asyncCallStart.sendPost("https://erzl-test.element-lab.ru/api/mpi-report/operation/poll/" + opToken, RequestMethod.GET, map, null);
@@ -678,8 +690,8 @@ public class AsyncCallStart {
         String response = asyncCallStart.sendPost("http://localhost:8082/api/mpi-report/operation/getReportList", RequestMethod.POST, map, "{\n"
                 //				+ "\"id\": \"3c8b3123-ea0c-4849-b461-2bdc002ae706\"\n"
                 + "\"createDateFrom\":\"" + "2024-01-01\","
-                + "\"createDateTo\":\"" + "2024-01-17\","
-                + "\"types\":[],"
+                + "\"createDateTo\":\"" + "2025-01-17\","
+                + "\"types\":[\"REPORT_DEDUPLICATION_INCIDENTS\"],"
                 + "\"createdByManager\":\"true\""
                 + "}");
 //        String response = asyncCallStart.sendPost("https://erzl-test.element-lab.ru/api/reporter/operation/getReportList", RequestMethod.POST, map, "{"
@@ -720,7 +732,7 @@ public class AsyncCallStart {
     }
 
     private static void getReportMetaInfo(LinkedHashMap<String, String> map, AsyncCallStart asyncCallStart) throws Exception {
-        String response = asyncCallStart.sendPost("http://localhost:8082/api/mpi-report/operation/getReportListMetaInfo", RequestMethod.POST, map, "{\"types\":[\"" + "REPORT_MO_ATTACHMENT_COUNT" + "\"]}");
+        String response = asyncCallStart.sendPost("http://localhost:8082/api/mpi-report/operation/getReportListMetaInfo", RequestMethod.POST, map, "{\"types\":[\"" + "REPORT_MO_ATTACHMENT_COUNT" + "\"], \"showInactive\": true}");
         System.out.println(response);
     }
 
