@@ -1,0 +1,1 @@
+https://erzl-test.rtk-element.ru/api/incident/swagger-ui/index.html

@@ -1,0 +1,23 @@
+export AUTH_SERVICE_HOST=https://erzl-test.rtk-element.ru
+export AUTH_SERVICE_PRIVATE_URL_PREFIX=/api/auth
+export AUTH_SERVICE_TECHNICAL_URL_LOGIN=/user/technical
+export HEADER_AUTHORIZATION="Basic ZGV2ZWxvcGVyOkdJY2F1VzdPYlRsMTk4djRYcjlR"
+export INCIDENT_SERVICE_DB_JDBC_URL="jdbc:postgresql://localhost:5435/incident_service?currentSchema=public&user=incident_service_user&password=incident_service_user"
+export INCIDENT_SERVICE_DB_READONLY_JDBC_URL="jdbc:postgresql://localhost:5435/incident_service?currentSchema=public&user=incident_service_user&password=incident_service_user"
+export INCIDENT_SERVICE_LIQUIBASE_ENABLED=true
+export MPI_COMMON_SECURITY_CONFIG=dataline_hz
+export MPI_COMMON_SECURITY_HAZELCAST_ADDRESS=10.10.21.7:32035
+export MPI_COMMON_SECURITY_HAZELCAST_MAP_NAME=testSessionMap
+export MPI_COMMON_SECURITY_IGNITE_ADDRESS=10.10.21.10:31987
+export MPI_COMMON_SECURITY_IGNITE_MAP_NAME=devSessionMap
+export MPI_COMMON_SECURITY_IGNITE_PASSWORD=ignite
+export MPI_COMMON_SECURITY_IGNITE_USERNAME=ignite
+export MPI_COMMON_SECURITY_JWT_SECRET=secret_test
+export MPI_COMMON_SECURITY_SPRING_PROFILES_ACTIVE=gostech
+export INCIDENT_SERVICE_TECHNICAL_ACCOUNT_TOKEN=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpbnRlcm5hbCI6dHJ1ZSwic2Vzc2lvbi1pZCI6ImluY2lkZW50LXNlcnZpY2UtdGVjaG5pY2FsLWFjY291bnQta2V5LTIwMjUtMDItMDQifQ.HmAhj8ZtjHzsCTwxgFp60K9Lph2RHYFd5zW99FRkzoU
+export INCIDENT_SERVICE_AUTHORIZATION_TRUSTED_SERVICE_KEYS=incident-service-technical-account-key-2025-02-04
+export INCIDENT_SERVICE_PRIVATE_URL_PREFIX=/api/incident
+export INCIDENT_INTERCEPTOR=ru.elementlab.common.http.base.interceptor.AuthorizationHeaderInterceptor
+
+/usr/lib/jvm/jdk-11/bin/java -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=21046 -jar /home/me/GIT/ferzl/incident-service/target/incident-service-null.jar --server.port=8085
+
